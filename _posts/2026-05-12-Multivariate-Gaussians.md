@@ -40,7 +40,7 @@ $$
 A = \begin{pmatrix} \sigma_1^2 & 0 \\ 0 & \sigma_2^2 \end{pmatrix}
 $$
 
-is the covariance matrix in this independent case (note \\(|A|^{1/2} = \sigma_1 \sigma_2\\), so the prefactor agrees with the product form above). Its diagonal entries scale the two axes independently, so the level sets of \\(p\\) are axis-aligned ellipses — circles when \\(\sigma_1 = \sigma_2\\).
+is the covariance matrix in this independent case (note \\(\lvert A \rvert^{1/2} = \sigma_1 \sigma_2\\), so the prefactor agrees with the product form above). Its diagonal entries scale the two axes independently, so the level sets of \\(p\\) are axis-aligned ellipses — circles when \\(\sigma_1 = \sigma_2\\).
 
 {% include figure.liquid path="assets/img/multivariate_gaussian_independent.png" title="2D Gaussian sample with zero correlation; 1σ, 2σ, 3σ level sets are axis-aligned ellipses." class="img-fluid rounded z-depth-1" %}
 
@@ -82,7 +82,7 @@ $$
 \prod_{i=1}^N \frac{1}{\sqrt{2 \pi \sigma_i^2}} = \frac{1}{(2 \pi)^{N/2} \prod_i \sigma_i},
 $$
 
-which generalises to \\(1 / ((2 \pi)^{N/2} |\Sigma|^{1/2})\\) in the dependent case (note \\(|\Sigma| = \prod_i \sigma_i^2\\) when \\(\Sigma\\) is diagonal, recovering the product form). The resulting equation is
+which generalises to \\(1 / ((2 \pi)^{N/2} \lvert \Sigma \rvert^{1/2})\\) in the dependent case (note \\(\lvert \Sigma \rvert = \prod_i \sigma_i^2\\) when \\(\Sigma\\) is diagonal, recovering the product form). The resulting equation is
 
 $$
 p(x_1, x_2, \ldots, x_N) = \frac{1}{(2 \pi)^{N/2} |\Sigma|^{1/2}} \exp\left( -\frac{(x - \mu)^T \Sigma^{-1} (x - \mu)}{2} \right).
@@ -116,7 +116,7 @@ $$
 p(x_2 | x_1) = \frac{p(x_1, x_2)}{p(x_1)},
 $$
 
-where the denominator is the familiar 1D Gaussian PDF. Let \\(\rho = \text{cov}(x_1, x_2) / (\sigma_1 \sigma_2)\\) be the correlation, so that \\(|\Sigma| = \sigma_1^2 \sigma_2^2 (1 - \rho^2)\\) and the joint quadratic form expands as
+where the denominator is the familiar 1D Gaussian PDF. Let \\(\rho = \text{cov}(x_1, x_2) / (\sigma_1 \sigma_2)\\) be the correlation, so that \\(\lvert \Sigma \rvert = \sigma_1^2 \sigma_2^2 (1 - \rho^2)\\) and the joint quadratic form expands as
 
 $$
 (x - \mu)^T \Sigma^{-1} (x - \mu) = \frac{1}{1 - \rho^2}\left[\frac{(x_1 - \mu_1)^2}{\sigma_1^2} - \frac{2 \rho (x_1 - \mu_1)(x_2 - \mu_2)}{\sigma_1 \sigma_2} + \frac{(x_2 - \mu_2)^2}{\sigma_2^2}\right].
