@@ -25,8 +25,8 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I'm a CS master's student at Georgia Tech (OMSCS) with an undergraduate background in applied physics from UC Santa Cruz. My interests sit at the intersection of computer vision, machine learning, and geometric deep learning — I'm especially drawn to problems where mathematical structure (symmetry, geometry, physics) constrains and informs learned representations.
+I'm a CS master's student at Georgia Tech (OMSCS) with an undergraduate background in applied physics from UC Santa Cruz. My interests sit at the intersection of computer vision, machine learning, and geometric deep learning — I'm especially drawn to problems where mathematical structure (symmetry, geometry, physics) constrains and informs learned representations. In my past life I used to do 3D modelling. I also love reading classics, philosophy, and non-fiction, and my biggest activity outside of academics is climbing!
 
-Before grad school I worked on real-time pose estimation, diffusion models, and multi-agent LLM systems. As an undergraduate I did condensed matter research in the Velasco Lab at UCSC, and I'm an [IBM Qiskit Advocate](https://www.qiskit.org/advocates).
+During grad school I have worked on real-time pose estimation, diffusion models, and multi-agent LLM systems. As an undergraduate I did condensed matter research in the Velasco Lab at UCSC, and I'm an [IBM Qiskit Advocate](https://www.qiskit.org/advocates).
 
-I'm currently looking for part-time CV/ML research and engineering roles, and applying to PhD programs for Fall 2027 admission. Get in touch if you'd like to collaborate or just talk shop.
+I'm currently looking for part-time CV/ML research and engineering roles, and applying to PhD programs for Fall 2028 admission. Get in touch if you'd like to collaborate or just talk shop.
