@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-multivariate-gaussian-pdfs",
+            },{id: "post-singular-value-decomposition-amp-a-coda-for-principal-component-analysis",
+        
+          title: "Singular Value Decomposition &amp; A Coda for Principal Component Analysis",
+        
+        description: "Deriving the relationship between SVD to eigendecomposition and their relations to PCA.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/SVD-PCA/";
+          
+        },
+      },{id: "post-multivariate-gaussian-pdfs",
         
           title: "Multivariate Gaussian PDFs",
         
