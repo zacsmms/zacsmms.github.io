@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-singular-value-decomposition-amp-a-coda-for-principal-component-analysis",
+            },{id: "post-least-squares-from-4-angles",
+        
+          title: "Least Squares from 4 Angles",
+        
+        description: "Covering Least Squares solutions from the goal of describing the Moore-Penrose Pseudoinverse.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/Least-Squares/";
+          
+        },
+      },{id: "post-singular-value-decomposition-amp-a-coda-for-principal-component-analysis",
         
           title: "Singular Value Decomposition &amp; A Coda for Principal Component Analysis",
         
