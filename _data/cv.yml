@@ -1,10 +1,8 @@
 cv:
   name: Zachary Scott-Murphy
-  label: Researcher (Computer Vision/AI)
+  headline: Computer Visioin Researcher | Athlete
   email: zachary@scott-murphy.com
   location: Berkeley, CA
-  image: ""
-  summary: A researcher and educator focusing on first principals and a climbing athlete.
 
   social_networks:
     - network: GitHub
@@ -12,18 +10,11 @@ cv:
     - network: LinkedIn
       username: zachary-scott-murphy
 
-  address:
-    street:
-    city: Berkeley
-    region: California
-    postalCode: CA
-    countryCode: US
-
   sections:
     Education:
       - institution: Georgia Institute of Technology
         location: Atlanta, Georgia
-        url: gatech.edu
+        url: https://www.gatech.edu
         area: Computer Science
         studyType: MSc
         start_date: 2025
@@ -80,12 +71,16 @@ cv:
     Awards:
       - title: College Scholar's Program
         date: 2022-04-12
+        authors: 
+          - "University of California, Santa Cruz"
         awarder: University of California, Santa Cruz
         url: https://news.ucsc.edu/2021/10/college-scholars-program/
         summary: This program gives a select group of students in each year the opportunity to explore research opportunities.
 
       - title: Dean's Honors
         date: 2022-05-10
+        authors:
+          - "University of California, Santa Cruz"
         awarder: University of California, Santa Cruz
         summary: Awarded for top 15% of their academic division.
 
