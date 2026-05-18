@@ -1,6 +1,6 @@
 cv:
   name: Zachary Scott-Murphy
-  headline: Computer Visioin Researcher | Athlete
+  headline: Computer Vision Researcher | Athlete
   email: zachary@scott-murphy.com
   location: Berkeley, CA
 
@@ -56,6 +56,15 @@ cv:
           - Presented several events with researchers in quantum computing from several universities.
           - Wrote articles on quantum computing research and education.
           - IBM Quantum Advocate
+
+      - company: Benchmark Climbing
+        position: Climbing Coach and Experience Associate and Summer Counsel Coach
+        location: Berkeley, CA
+        start_date: 2024
+        highlights:
+          - Coached several clients requiring explanation of complex movement across a variety of differing skill levels.
+          - Worked as the point of entry and first-impression for returning and new customers.
+          - Taught summer kids camps involving climbing drills hidden as activities that any age group finds fun, planned course structures, and developed lesson plans for them.
 
     #Volunteer:
     #  - company: People's Climate March
