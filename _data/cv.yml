@@ -85,13 +85,13 @@ cv:
         summary: Awarded for top 15% of their academic division.
 
     Publications:
-      - title: Zur Elektrodynamik bewegter Körper
+      - title: On Becoming a Self in the Age of AI; Cognitive Sovereignty and the Drift of Human Judgment (In Peer Review)
         authors:
-          - Albert Einstein
-        publisher: Annalen der Physik
-        releaseDate: 1905-06-30
-        url: https://en.wikisource.org/wiki/Translation:On_the_Electrodynamics_of_Moving_Bodies
-        summary: It concerned an interpretation of the Michelson–Morley experiment and the properties of light and time. Special relativity incorporates the principle that the speed of light is the same for all inertial observers regardless of the state of motion of the source.
+          - Zachary Scott-Murphy
+        publisher: SpringerNature AI & Society
+        releaseDate: 2026-04-06
+        url: https://link.springer.com/journal/146
+        summary: It covers the recognition that AI is deferring cognition and judgement from humans, creating an alliance out of increasing necessity. It parallels cognitive drift to attention drift.
 
     Languages:
       - name: English
