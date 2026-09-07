@@ -1,0 +1,38 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+{%- assign page_title = page.title | default: site.title -%}
+<title>{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+<meta name="description" content="{{ page.description | default: site.description | strip_newlines | truncate: 160 }}" />
+<link rel="canonical" href="{{ page.url | absolute_url }}" />
+
+<meta property="og:type" content="{% if page.date %}article{% else %}website{% endif %}" />
+<meta property="og:title" content="{{ page_title }}" />
+<meta property="og:description" content="{{ page.description | default: site.description | strip_newlines | truncate: 160 }}" />
+<meta property="og:url" content="{{ page.url | absolute_url }}" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M6 26V6' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M6 26h20' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M8 24L24 9' stroke='%231f77b4' stroke-width='3' fill='none'/><circle cx='24' cy='9' r='3.5' fill='%231f77b4'/></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+{%- feed_meta -%}
+
+{%- if page.math != false and page.layout == 'post' -%}
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+      },
+      options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code", "annotation", "annotation-xml"],
+        },
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{%- endif -%}
