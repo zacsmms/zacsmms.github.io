@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" /><title>Singular Value Decomposition & A Coda for Principal Component Analysis · Zachary Scott-Murphy</title>
+<meta name="description" content="Deriving the relationship between SVD to eigendecomposition and their relations to PCA." />
+<link rel="canonical" href="https://zacsmms.github.io/writing/svd-pca/" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Singular Value Decomposition & A Coda for Principal Component Analysis" />
+<meta property="og:description" content="Deriving the relationship between SVD to eigendecomposition and their relations to PCA." />
+<meta property="og:url" content="https://zacsmms.github.io/writing/svd-pca/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M6 26V6' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M6 26h20' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M8 24L24 9' stroke='%231f77b4' stroke-width='3' fill='none'/><circle cx='24' cy='9' r='3.5' fill='%231f77b4'/></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/assets/css/main.css" /><link type="application/atom+xml" rel="alternate" href="https://zacsmms.github.io/feed.xml" title="Zachary Scott-Murphy" /><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+      },
+      options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code", "annotation", "annotation-xml"],
+        },
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="site-name" href="/">Zachary Scott-Murphy</a>
+    </header>
+
+    <main id="main">
+      <article class="post">
+  <header class="post-header">
+    <p class="eyebrow">
+      <time datetime="2026-05-13T00:00:00+00:00">13 May 2026</time>
+        <span class="sep">/</span>
+        <span class="tag-label">linear-algebra</span><span class="tag-label">fundamentals</span>
+    </p>
+    <h1>Singular Value Decomposition & A Coda for Principal Component Analysis</h1><p class="post-standfirst">Deriving the relationship between SVD to eigendecomposition and their relations to PCA.</p>
+  </header>
+
+  <div class="prose">
+    <p>The connecting component between Singular Value Decomposition (SVD) and Principal Component Analysis (PCA) is the eigendecomposition. Principal component analysis requires keeping the top-k eigenvectors for reconstruction of the maximal information components. We can study the effect of this with a Gaussian.</p>
+
+<p>Following on from the previous post, we used a covariance matrix to define conditionally dependent multivariate Gaussians. The covariance matrix can be thought of as a set of operations, a rotation, followed by scaling, finishing off with a final rotation. This looks like,</p>
+
+\[X = U \Sigma V^T,\]
+
+<p>for a given matrix X, the rotation components \(U\) and \(V\), with scaling \(\Sigma\). To relate to eigendecomposition, we consider a symmetric Positive SemiDefinite (PSD) matrix M,</p>
+
+\[M = X^T X,\]
+
+<p>where X is not necessarily square, but M is. Substituting in the SVD for X and eliminating variables results in,</p>
+
+\[X^T X = V \Sigma^2 V^T,\]
+
+\[X X^T = U \Sigma^2 U^T.\]
+
+<p>These equations are eigendecompositions themselves for the left and right eigenvectors, so the singular values of X are,</p>
+
+\[\sigma_i = \sqrt{\lambda_i(X^T X)},\]
+
+<p>or the square roots of the non-zero eigenvalues of \(X^T X\) (equivalently \(XX^T\)). Therefore, the columns of \(U\) are eigenvectors of \(XX^T\) and the columns of \(V\) are eigenvectors of \(X^T X\).</p>
+
+<p>The link between SVD and eigendecomposition allows PCA to perform a low-rank execution of decomposition for simpler operations. By taking the high dimensional dataset that PCA receives, and reducing to the axes with maximal variance, we retain the most information. With Gaussian covariance descriptions, the eigenvectors corresponded to ellipsoidal directions. Meaning that we collapse the meaningful information because it is easy to reproduce and it corresponds to a majority of the overall feature.</p>
+
+<figure>
+  <img src="/assets/img/principal_components.png" alt="Principal components of a 3D Gaussian; vectors PC1, PC2, and PC3" loading="lazy" />
+  <figcaption>Principal components of a 3D Gaussian; vectors PC1, PC2, and PC3</figcaption>
+</figure>
+
+<h2 id="low-rank-and-truncated-svd">Low-Rank and Truncated SVD</h2>
+
+<p>To avoid hand-waving completely, I’ll revisit the low-rank concept for SVD. To begin, the reduced SVD assumes that for any SVD there are columns in U whose corresponding singular values are zero, so they contribute nothing to the reconstruction. Specifically for \(A \in \mathbb{R}^{m\times n}\) and \(m \ge n\),</p>
+
+\[U \in \mathbb{R}^{m \times m}, \Sigma \in \mathbb{R}^{m \times n}, V \in \mathbb{R}^{n \times n},\]
+
+<p>we can define the reduced SVD as,</p>
+
+\[\tilde{U} \in \mathbb{R}^{m \times n}, \tilde{\Sigma} \in \mathbb{R}^{n \times n}, \tilde{V} \in \mathbb{R}^{n \times n}.\]
+
+<p>This reduces the number of operations total that we need to perform. The rank of the matrix is then defined as the number of non-zero diagonal elements in \(\Sigma\). This brings another question in mind. Because there are certain columns of the matrices that we don’t need, can we take only the top-k elements from the decomposition for reconstruction?</p>
+
+<figure>
+  <img src="/assets/img/truncated.png" alt="Top-2 Elements from Truncated SVD and Reconstruction; grey projects shows that the recovered gaussian is in 2D" loading="lazy" />
+  <figcaption>Top-2 Elements from Truncated SVD and Reconstruction; grey projects shows that the recovered gaussian is in 2D</figcaption>
+</figure>
+
+<p>To the machine learner, this is obviously PCA, and it directly follows that taking the top-k is an information preserving operation. But why is this?
+The matrix we consider is the eigendecomposition for simplicity, the diagonal elements are the eigenvalues and we get their retrieved eigenvectors from the other matrices.
+By considering a low-rank representation of the decomposition, we are taking only the first few eigenvalues, which means that the eigenvectors along other dimensions are zero-ed out.
+We order the eigenvalues based on maximal variance so that they describe the largest change.
+This top-k component procedure we perform to retain the eigenvectors which describe the principal information, by ordering based on variance.
+Therefore, PCA takes the decomposition to reduce the amount of information in a feature dataset, by describing maximal variance in the eigendecomposition.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>We found out here exactly why PCA is related to eigendecomposition by the connection of eigendecomposition to SVD. PCA uses the low-rank description of a decomposition to retain maximally varying information in the eigenbasis. That’s the sum of everything we did here, just in a shorter form!</p>
+
+  </div>
+
+  <nav class="post-nav">
+    <a href="/#writing">&larr; All writing</a>
+  </nav>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+      <span>&copy; 2026 Zachary Scott-Murphy</span>
+      <span class="footer-links">
+        <a href="mailto:zachary@scott-murphy.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="https://github.com/zacsmms">GitHub</a>
+      </span>
+    </footer>
+  </body>
+</html>

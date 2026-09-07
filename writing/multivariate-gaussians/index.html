@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" /><title>Multivariate Gaussian PDFs · Zachary Scott-Murphy</title>
+<meta name="description" content="Deriving multivariate Gaussian PDFs from the 1D case, with marginals and conditionals." />
+<link rel="canonical" href="https://zacsmms.github.io/writing/multivariate-gaussians/" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Multivariate Gaussian PDFs" />
+<meta property="og:description" content="Deriving multivariate Gaussian PDFs from the 1D case, with marginals and conditionals." />
+<meta property="og:url" content="https://zacsmms.github.io/writing/multivariate-gaussians/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M6 26V6' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M6 26h20' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M8 24L24 9' stroke='%231f77b4' stroke-width='3' fill='none'/><circle cx='24' cy='9' r='3.5' fill='%231f77b4'/></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/assets/css/main.css" /><link type="application/atom+xml" rel="alternate" href="https://zacsmms.github.io/feed.xml" title="Zachary Scott-Murphy" /><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+      },
+      options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code", "annotation", "annotation-xml"],
+        },
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="site-name" href="/">Zachary Scott-Murphy</a>
+    </header>
+
+    <main id="main">
+      <article class="post">
+  <header class="post-header">
+    <p class="eyebrow">
+      <time datetime="2026-05-12T00:00:00+00:00">12 May 2026</time>
+        <span class="sep">/</span>
+        <span class="tag-label">probability</span><span class="tag-label">fundamentals</span>
+    </p>
+    <h1>Multivariate Gaussian PDFs</h1><p class="post-standfirst">Deriving multivariate Gaussian PDFs from the 1D case, with marginals and conditionals.</p>
+  </header>
+
+  <div class="prose">
+    <p>Gaussian probability density functions (PDFs) provide a new domain to understand 3-dimensional information using Gaussian Splatting (Kerbl et al., 2023). This technique, influenced by Neural Radiance Fields (Mildenhall et al., 2020), opened up deep learning techniques without the high compute barrier of the neural network representation.</p>
+
+<p>Here I derive the basic properties of multivariate gaussians from fundamentals.</p>
+
+<h2 id="1d-gaussian-pdf">1D Gaussian PDF</h2>
+
+<p>The 1D Gaussian PDF is of the form,</p>
+
+\[p(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2 \sigma^2} \right),\]
+
+<p>where \(\sigma\) is the standard deviation (\(\sigma^2\) the variance), controlling the spread of the gaussian simultaneously with the peak height, and \(\mu\) is the mean. This equation is alternatively a normal distribution and describes a standard probability distribution found across a variety of statistical scenarios.</p>
+
+<h2 id="2d-gaussian-pdf-for-independent-variables">2D Gaussian PDF for Independent Variables</h2>
+
+<p>A logical next step is how to define the Gaussian PDF in 2D; if we can define a Gaussian PDF in 2D then we can define an N-dimensional Gaussian PDF. We start off from the case of independent variables, which is just a resulting product of Gaussian PDFs,</p>
+
+\[p(x_1, x_2) = p(x_1) \cdot p(x_2) = \frac{1}{2 \pi \sigma_1 \sigma_2} \exp\left( -\frac{(x_1 - \mu_1)^2}{2 \sigma_1^2} - \frac{(x_2 - \mu_2)^2}{2 \sigma_2^2} \right),\]
+
+<p>with two independent variances and means. The resulting Gaussian PDF is allegorically a series of concentric ellipses with increasing distance between them. Then, let \(x = [x_1, x_2]\) and \(\mu = [\mu_1, \mu_2]\) and we rewrite the equation,</p>
+
+\[p(x_1, x_2) = \frac{1}{2 \pi |A|^{1/2}} \exp\left( -\frac{(x - \mu)^T A^{-1} (x - \mu)}{2} \right),\]
+
+<p>where</p>
+
+\[A = \begin{pmatrix} \sigma_1^2 &amp; 0 \\ 0 &amp; \sigma_2^2 \end{pmatrix}\]
+
+<p>is the covariance matrix in this independent case (note \(\lvert A \rvert^{1/2} = \sigma_1 \sigma_2\), so the prefactor agrees with the product form above). Its diagonal entries scale the two axes independently, so the level sets of \(p\) are axis-aligned ellipses — circles when \(\sigma_1 = \sigma_2\).</p>
+
+<figure>
+  <img src="/assets/img/multivariate_gaussian_independent.png" alt="2D Gaussian sample with zero correlation; 1σ, 2σ, 3σ level sets are axis-aligned ellipses." loading="lazy" />
+  <figcaption>2D Gaussian sample with zero correlation; 1σ, 2σ, 3σ level sets are axis-aligned ellipses.</figcaption>
+</figure>
+
+<h2 id="2d-gaussian-pdf-for-dependent-variables">2D Gaussian PDF for Dependent Variables</h2>
+
+<p>Here we consider the exponent; its form is</p>
+
+\[-\frac{(x - \mu)^T A^{-1} (x - \mu)}{2}.\]
+
+<p>The missing piece of \(A\) is the covariance between the variables. We extend the matrix to include those off-diagonal dependence components. The covariance between \(x_1, x_2\) is</p>
+
+\[\text{cov}[x_1, x_2] = \mathbb{E}[(x_1 - \mu_1)(x_2 - \mu_2)],\]
+
+<p>the expectation of the product between the centred variable components. The covariance matrix can therefore be defined as,</p>
+
+\[\Sigma = \begin{pmatrix} \text{var}(x_1) &amp; \text{cov}(x_1, x_2) \\ \text{cov}(x_2, x_1) &amp; \text{var}(x_2) \end{pmatrix},\]
+
+<p>where the off-diagonal entries \(\text{cov}(x_1, x_2) = \text{cov}(x_2, x_1)\) are equal because covariance is symmetric by definition. The resulting PDF is,</p>
+
+\[p(x_1, x_2) = \frac{1}{2 \pi |\Sigma|^{1/2}} \exp\left( -\frac{(x - \mu)^T \Sigma^{-1} (x - \mu)}{2} \right).\]
+
+<p>Geometrically, the off-diagonal terms rotate the level sets away from the coordinate axes — the ellipses tilt in the direction of correlation.</p>
+
+<figure>
+  <img src="/assets/img/multivariate_gaussian_dependent.png" alt="Same sample re-shaped with correlation rho = 0.5; the level-set ellipses now tilt along the principal axes of Sigma." loading="lazy" />
+  <figcaption>Same sample re-shaped with correlation \(\rho = 0.5\); the level-set ellipses now tilt along the principal axes of \(\Sigma\).</figcaption>
+</figure>
+
+<h2 id="nd-gaussian-pdf-for-dependent-variables">ND Gaussian PDF for Dependent Variables</h2>
+
+<p>The generalisation to \(N\) variables follows the same pattern. \(\Sigma \in \mathbb{R}^{2 \times 2} \rightarrow \mathbb{R}^{N \times N}\) keeps variances along the diagonal and fills the off-diagonals with covariances; the vectors \(x, \mu \in \mathbb{R}^2 \rightarrow \mathbb{R}^N\) simply grow in length. In the independent case the prefactor is a product of 1D normalisers,</p>
+
+\[\prod_{i=1}^N \frac{1}{\sqrt{2 \pi \sigma_i^2}} = \frac{1}{(2 \pi)^{N/2} \prod_i \sigma_i},\]
+
+<p>which generalises to \(1 / ((2 \pi)^{N/2} \lvert \Sigma \rvert^{1/2})\) in the dependent case (note \(\lvert \Sigma \rvert = \prod_i \sigma_i^2\) when \(\Sigma\) is diagonal, recovering the product form). The resulting equation is</p>
+
+\[p(x_1, x_2, \ldots, x_N) = \frac{1}{(2 \pi)^{N/2} |\Sigma|^{1/2}} \exp\left( -\frac{(x - \mu)^T \Sigma^{-1} (x - \mu)}{2} \right).\]
+
+<h2 id="marginals-of-joint-gaussian-distributions">Marginals of Joint Gaussian Distributions</h2>
+
+<p>We now move on with deriving conditional probabilities.</p>
+
+<h3 id="2d-independent-variables">2D Independent Variables</h3>
+
+<p>This is the simplest case, solved logically or mathematically. The equation for the gaussian is a density function, so we can integrate over one variable,</p>
+
+\[p(x_1) = \int_{-\infty}^{\infty} p(x_1, x_2) \,dx_2 = \int_{-\infty}^{\infty} p(x_1) p(x_2) \,dx_2 = p(x_1) \int_{-\infty}^{\infty} p(x_2) \,dx_2,\]
+
+<p>where the factorisation is allowed because the PDFs are independent. The result is just \(p(x_1)\) because the area under a gaussian PDF is 1 (the total probability). Alternatively, you can notice that the marginal, if not conditioned on any other variable, results in an independent PDF.</p>
+
+<h3 id="2d-dependent-variables">2D Dependent Variables</h3>
+
+<p>For the dependent case, we consider the equation from before,</p>
+
+\[p(x_1, x_2) = \frac{1}{2 \pi |\Sigma|^{1/2}} \exp\left( -\frac{(x - \mu)^T \Sigma^{-1} (x - \mu)}{2} \right).\]
+
+<p>The conditional probability can be found from</p>
+
+\[p(x_2 | x_1) = \frac{p(x_1, x_2)}{p(x_1)},\]
+
+<p>where the denominator is the familiar 1D Gaussian PDF. Let \(\rho = \text{cov}(x_1, x_2) / (\sigma_1 \sigma_2)\) be the correlation, so that \(\lvert \Sigma \rvert = \sigma_1^2 \sigma_2^2 (1 - \rho^2)\) and the joint quadratic form expands as</p>
+
+\[(x - \mu)^T \Sigma^{-1} (x - \mu) = \frac{1}{1 - \rho^2}\left[\frac{(x_1 - \mu_1)^2}{\sigma_1^2} - \frac{2 \rho (x_1 - \mu_1)(x_2 - \mu_2)}{\sigma_1 \sigma_2} + \frac{(x_2 - \mu_2)^2}{\sigma_2^2}\right].\]
+
+<p>Completing the square in \(x_2\) separates it into a piece depending on \(x_2\) and one that does not,</p>
+
+\[(x - \mu)^T \Sigma^{-1} (x - \mu) = \frac{[(x_2 - \mu_2) - \rho (\sigma_2 / \sigma_1)(x_1 - \mu_1)]^2}{\sigma_2^2 (1 - \rho^2)} + \frac{(x_1 - \mu_1)^2}{\sigma_1^2}.\]
+
+<p>The second term, together with the matching factor in the joint’s normalisation, is exactly \(p(x_1)\), which cancels in the ratio. What remains is itself a 1D Gaussian in \(x_2\),</p>
+
+\[p(x_2 | x_1) = \frac{1}{\sqrt{2 \pi \sigma_2^2 (1 - \rho^2)}} \exp\left( -\frac{(x_2 - \mu_{2|1})^2}{2 \sigma_{2|1}^2} \right),\]
+
+<p>with conditional mean and variance</p>
+
+\[\mu_{2|1} = \mu_2 + \rho \frac{\sigma_2}{\sigma_1}(x_1 - \mu_1), \qquad \sigma_{2|1}^2 = \sigma_2^2 (1 - \rho^2).\]
+
+<p>So observing \(x_1\) shifts the mean of \(x_2\) along the regression line and shrinks its variance by a factor of \((1 - \rho^2)\). In the general \(N\)-D case the same algebra (block-matrix inversion) gives</p>
+
+\[p(x_b | x_a) = \mathcal{N}\bigl(\mu_b + \Sigma_{ba} \Sigma_{aa}^{-1}(x_a - \mu_a),\; \Sigma_{bb} - \Sigma_{ba} \Sigma_{aa}^{-1} \Sigma_{ab}\bigr).\]
+
+<figure>
+  <img src="/assets/img/multivariate_gaussian_conditional.png" alt="Conditioning on y = 3 slices the joint cloud (top); the resulting 1D conditional density p(x mid y) has mean shifted along the regression line and variance shrunk by (1 - rho^2) (bottom)." loading="lazy" />
+  <figcaption>Conditioning on \(y = 3\) slices the joint cloud (top); the resulting 1D conditional density \(p(x \mid y)\) has mean shifted along the regression line and variance shrunk by \((1 - \rho^2)\) (bottom).</figcaption>
+</figure>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This concludes the overview on multivariate Gaussian PDFs, there’s many applications of Gaussian’s so understanding their basics is very important. If you are reading this and on your path to begin your academic career, I highly recommend deriving this yourself and coding up visualisations to help you understand the way the components interact.</p>
+
+  </div>
+
+  <nav class="post-nav">
+    <a href="/#writing">&larr; All writing</a>
+  </nav>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+      <span>&copy; 2026 Zachary Scott-Murphy</span>
+      <span class="footer-links">
+        <a href="mailto:zachary@scott-murphy.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="https://github.com/zacsmms">GitHub</a>
+      </span>
+    </footer>
+  </body>
+</html>

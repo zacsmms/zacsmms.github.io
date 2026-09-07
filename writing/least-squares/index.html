@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" /><title>Least Squares from 4 Angles · Zachary Scott-Murphy</title>
+<meta name="description" content="Covering Least Squares solutions from the goal of describing the Moore-Penrose Pseudoinverse." />
+<link rel="canonical" href="https://zacsmms.github.io/writing/least-squares/" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Least Squares from 4 Angles" />
+<meta property="og:description" content="Covering Least Squares solutions from the goal of describing the Moore-Penrose Pseudoinverse." />
+<meta property="og:url" content="https://zacsmms.github.io/writing/least-squares/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M6 26V6' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M6 26h20' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M8 24L24 9' stroke='%231f77b4' stroke-width='3' fill='none'/><circle cx='24' cy='9' r='3.5' fill='%231f77b4'/></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/assets/css/main.css" /><link type="application/atom+xml" rel="alternate" href="https://zacsmms.github.io/feed.xml" title="Zachary Scott-Murphy" /><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+      },
+      options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code", "annotation", "annotation-xml"],
+        },
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="site-name" href="/">Zachary Scott-Murphy</a>
+    </header>
+
+    <main id="main">
+      <article class="post">
+  <header class="post-header">
+    <p class="eyebrow">
+      <time datetime="2026-05-15T00:00:00+00:00">15 May 2026</time>
+        <span class="sep">/</span>
+        <span class="tag-label">linear-algebra</span><span class="tag-label">fundamentals</span>
+    </p>
+    <h1>Least Squares from 4 Angles</h1><p class="post-standfirst">Covering Least Squares solutions from the goal of describing the Moore-Penrose Pseudoinverse.</p>
+  </header>
+
+  <div class="prose">
+    <p>This topic was not one I expected to misunderstand so much. For a topic in Machine Learning, Least Squares is one of the fundamentals by far. However, it has more nuance and interoperable techniques that I’ve touched upon prior.</p>
+
+<p>For this post, I’ll approach Least Squares from 1 angle, to do that we need to explore the Moore-Penrose Pseudoinverse.</p>
+
+<p>The motivation for the Pseudoinverse is best understood geometrically before tackling the mathematics. Consider first a matrix A:</p>
+
+\[A = \begin{pmatrix} 1 &amp; 3 \\ 2 &amp; 0 \\ 3 &amp; 0 \end{pmatrix}.\]
+
+<p>This is a rectangular matrix that has column vectors \(v_1 \text{ and } v_2\) which define the column space (space defined by any linear combination of them). Defining the linear combination of them in this way we can understand the column space as a plane containing the region describable with them. The resulting graph looks as such!</p>
+
+<figure>
+  <img src="/assets/img/column_space.png" alt="Column space of two vectors creating a plane described in grey." loading="lazy" />
+  <figcaption>Column space of two vectors creating a plane described in grey.</figcaption>
+</figure>
+
+<p>This is a unitary portion of the overall column space for simplicity, but it spans in all directions achievable by their linear combination. Feel free to play around with this yourself. Remember that this describes the column space because it is the vectors defined by the columns of matrix A.</p>
+
+<p>Now, any point defined in the column space is easily projected with the pseudoinverse of matrix A back to where it would have lied on the 3D graph axes known so well! As seen in the image prior, I’ve defined a point in that space right at the centre of the column space of a half combination of both column vectors. The pseudoinverse of A is non-trivial but it is,</p>
+
+\[A^{+} = \begin{pmatrix} 5.61218077\text{e-}17 &amp; 1.53846154\text{e-}01 &amp; 2.30769231\text{e-}01 \\ 3.33333333\text{e-}01 &amp; -5.12820513\text{e-}02 &amp; -7.69230769\text{e-}02 \end{pmatrix},\]
+
+<p>Not exactly the prettiest, but it does result in a known location for the half point in A’s column space, directly at point (0.5, 0.5) luckily (or mayhaps not luck)!</p>
+
+<p>The point of contention here is that an inverse for this case was only easy because the point was described in a square portion of the matrix that we needed to consider. Non-square inverse matrices are not exactly a real concept, so we fill in the gap by introducing the Moore-Penrose Pseudoinverse, which happens to be exactly what was used to produce the non-square inverse matrix seen prior.</p>
+
+<p>To continue on the geometric understanding of the motivation, we were lucky enough to have a point described in the column space which consists of exactly 0 elements defined outside of a square portion of that matrix. If we had a point slightly above the surface, without the pseudoinverse it would be impossible to generate a description of it in the column-space of A. And that is effectively all but 2-dimensions accounted for by A, so there’s a lot of space missing and lots of possible points that we miss! To visualise this, here is a 2D example of two points, one lying on the surface, another lying outside the surface.</p>
+
+<figure>
+  <img src="/assets/img/basis_column.png" alt="Basis space and column space representation of two points, one lying in the column space and one lying outside of it." loading="lazy" />
+  <figcaption>Basis space and column space representation of two points, one lying in the column space and one lying outside of it.</figcaption>
+</figure>
+
+<p>Here, there are two lines defining a 1-dimensional space where 2-dimensions can be described. The green point lies in the plane and is easily defined by the square components of the matrix. The red point lies outside the plane and relies on a column space description that extends to the second dimension, so an additional matrix component needs to define the value. The red point respectively gets projected into column space roughly above the centre between the green point and the end of the blue vector.</p>
+
+<p>Now for the mathematical intuition, consider a rectangular matrix A and its SVD,</p>
+
+\[A = U \Sigma V^T,\]
+
+<p>as we showed in the previous post, the matrices U and V are square individually, but not in combination. The property that we want the pseudoinverse to hold is this,</p>
+
+\[A^+ = V \Sigma^+ U^T,\]
+
+<p>now is where we consider a goal to help us approach a definition, a sort of definition by characterisation. The goal is to find the pseudoinverse of course, but why we’re here in the first place is to understand Least Squares! That is minimising x for,</p>
+
+\[||Ax - b||,\]
+
+<p>where A is our matrix that is not of equal size, b is some point in basis space, and x is the value we’re looking to minimise. We start by defining two terms,</p>
+
+\[c = U^T b,\]
+
+\[z = V^T x.\]
+
+<p>V forms an orthonormal set so it follows that,</p>
+
+\[x = Vz \rightarrow ||x|| = ||z||,\]
+
+<p>therefore,</p>
+
+\[Ax = U\Sigma z,\]
+
+<p>and</p>
+
+\[||Ax - b|| = ||\Sigma z - c||.\]
+
+<p>Which reduces the problem to a diagonal problem, because \(\Sigma\) is diagonal. A search over a diagonal only cares about the rank r, resulting in,</p>
+
+\[||\Sigma z - c||^2 = \sum_{i=1}^r (\sigma_i z_i - c_i)^2 + \sum_{i=r+1}^M c_i^2.\]
+
+<p>Now because we’re minimising a Least Squares problem, this results in the term by term component,</p>
+
+\[\sigma_i z_i - c_i = 0 \rightarrow z_i = \frac{c_i}{\sigma_i}.\]
+
+<p>Despite this solution for z being optimal, we have too many options of the fraction definition. To pick the best one, we need to pick the point of the column space closest to the origin, which looks like,</p>
+
+\[||z||^2 = \sum_{i\leq r} z_i^2 + \sum_{i &gt; r} z_i^2.\]
+
+<p>Which drives each component to 0, for every \(i &gt; r\). What this means is that we define every component up to the base of the column space, after which nothing! In other words, this describes \(\Sigma \in \mathbb{R}^{n \times m}\), so x becomes,</p>
+
+\[x = V \Sigma^+ U^T b.\]
+
+<p>Which holds for every b so the operator that produces the best x is,</p>
+
+\[A^+ = V \Sigma^+ U^T.\]
+
+<p>What an interesting result! Randy Pausch would be proud of showing you both head fakes and actually going both directions at the same time. What we’ve done here has been coming in with the goal of understanding the Least Squares, but needing to define the Moore-Penrose pseudoinverse and using both as stepping stones for each other to solve each; despite the pseudoinverse being naturally harder to derive from first principles.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>This is probably the best approach you can take to understand both topics at once. I highly recommend readers derive from first principles, the Least Squares scenario via algebra, geometry, SVD, and probability. If you need hints, the topics of my two prior posts should give you enough headway. Also if you want some spare reading, that little mention I put in of Prof. Pausch is a great place to look, he felt like a modern-day Feynman! But maybe that is just a hint that most professors in our field have lots to say, just only a few have or had a platform to share it. Regardless, check out The Last Lecture!</p>
+
+<p>And here’s a boring Least Squares graph, because there can only be space for one cool topic like the pseudoinverse!</p>
+<figure>
+  <img src="/assets/img/least_squares.png" alt="Boring Least Squares problem..." loading="lazy" />
+  <figcaption>Boring Least Squares problem...</figcaption>
+</figure>
+
+  </div>
+
+  <nav class="post-nav">
+    <a href="/#writing">&larr; All writing</a>
+  </nav>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+      <span>&copy; 2026 Zachary Scott-Murphy</span>
+      <span class="footer-links">
+        <a href="mailto:zachary@scott-murphy.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="https://github.com/zacsmms">GitHub</a>
+      </span>
+    </footer>
+  </body>
+</html>
