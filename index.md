@@ -7,7 +7,7 @@ description: Zachary Scott-Murphy — working notes on computer vision, machine 
 
 <p class="eyebrow">Berkeley, California</p>
 
-# Working notes on the *mathematics* under machine learning.
+# Working notes on what *thoughts* I understand.
 
 I'm a CS master's student at Georgia Tech (OMSCS) with an undergraduate background in applied physics from UC Santa Cruz. My interests sit at the intersection of computer vision, machine learning, and geometric deep learning — I'm especially drawn to problems where mathematical structure (symmetry, geometry, physics) constrains and informs learned representations. In my past life I used to do 3D modelling. I also love reading classics, philosophy, and non-fiction, and my biggest activity outside of academics is climbing!
 
