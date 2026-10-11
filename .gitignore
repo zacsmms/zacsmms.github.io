@@ -6,3 +6,4 @@ Gemfile.lock
 .jekyll-metadata
 .sass-cache
 vendor
+docs

@@ -37,3 +37,4 @@ exclude:
   - CLAUDE.md
   - LICENSE
   - vendor
+  - docs
