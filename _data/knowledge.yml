@@ -1,0 +1,484 @@
+# The topic map. One file: edit here and both the topic list on /knowledge/ and
+# the small orbit beside the bio on the home page follow.
+#
+# ox / oy    position in the home-page orbit; rings are ordered by how connected
+#            a topic is, so the centre holds the hubs
+# ly / side  where that topic's name sits in the orbit, de-collided offline
+# depth      depth of understanding, 4 deepest .. 1 newest. Graded by an AI model from
+#            the transcript, repositories, resumes and writing — not self-assessed, and
+#            labelled as such on /knowledge/. Sets the orbit label's size (fs, in viewBox
+#            units) and its weight, and the type weight on /knowledge/
+#
+# state: solid = would defend it today | learning = in progress | target = aspirational
+
+orbit_width: 379
+orbit_height: 360
+
+clusters:
+  - id: physics
+    label: "Physics"
+  - id: maths
+    label: "Mathematics"
+  - id: learning
+    label: "Learning"
+  - id: vision
+    label: "Vision & 3D"
+  - id: comms
+    label: "Communication"
+  - id: cs
+    label: "Core CS"
+  - id: estimation
+    label: "Estimation & security"
+
+nodes:
+  - id: condensed-matter
+    label: "Condensed matter"
+    full: "Condensed matter & quantum materials"
+    cluster: physics
+    state: solid
+    ox: 206.1
+    oy: 26.9
+    ly: 26.9
+    side: end
+    depth: 3
+    fs: 8.5
+  - id: quantum-physics
+    label: "Quantum physics"
+    full: "Quantum physics"
+    cluster: physics
+    state: solid
+    ox: 212.2
+    oy: 37.2
+    ly: 37.2
+    side: start
+    depth: 3
+    fs: 8.5
+  - id: quantum-computing
+    label: "Quantum computing"
+    full: "Quantum computing"
+    cluster: physics
+    state: solid
+    ox: 173.9
+    oy: 97.3
+    ly: 97.3
+    side: end
+    depth: 4
+    fs: 10.0
+  - id: applied-physics
+    label: "Applied physics"
+    full: "Applied physics"
+    cluster: physics
+    state: solid
+    ox: 244.8
+    oy: 274.0
+    ly: 274.0
+    side: start
+    depth: 4
+    fs: 10.0
+  - id: astrophysics
+    label: "Astrophysics"
+    full: "Computational astrophysics"
+    cluster: physics
+    state: solid
+    ox: 167.9
+    oy: 49.7
+    ly: 49.7
+    side: end
+    depth: 1
+    fs: 6.2
+  - id: fluid-dynamics
+    label: "Fluid dynamics"
+    full: "Fluid dynamics"
+    cluster: physics
+    state: learning
+    ox: 193.6
+    oy: 347.8
+    ly: 347.8
+    side: start
+    depth: 1
+    fs: 6.2
+  - id: linear-algebra
+    label: "Linear algebra"
+    full: "Linear algebra (SVD, PCA)"
+    cluster: maths
+    state: solid
+    ox: 218.2
+    oy: 212.1
+    ly: 212.1
+    side: start
+    depth: 4
+    fs: 10.0
+  - id: probability
+    label: "Probability"
+    full: "Probability & multivariate Gaussians"
+    cluster: maths
+    state: solid
+    ox: 205.3
+    oy: 65.9
+    ly: 65.9
+    side: start
+    depth: 4
+    fs: 10.0
+  - id: least-squares
+    label: "Least squares"
+    full: "Least squares & the pseudoinverse"
+    cluster: maths
+    state: solid
+    ox: 223.9
+    oy: 291.0
+    ly: 291.0
+    side: end
+    depth: 3
+    fs: 8.5
+  - id: optimization
+    label: "Optimisation"
+    full: "Optimisation"
+    cluster: maths
+    state: solid
+    ox: 163.6
+    oy: 177.5
+    ly: 177.5
+    side: end
+    depth: 3
+    fs: 8.5
+  - id: real-analysis
+    label: "Real analysis"
+    full: "Real analysis"
+    cluster: maths
+    state: learning
+    ox: 111.3
+    oy: 222.9
+    ly: 222.9
+    side: end
+    depth: 1
+    fs: 6.2
+  - id: algorithms
+    label: "Algorithms"
+    full: "Graduate algorithms"
+    cluster: cs
+    state: solid
+    ox: 134.8
+    oy: 70.5
+    ly: 70.5
+    side: end
+    depth: 2
+    fs: 7.2
+  - id: systems
+    label: "Systems & infra"
+    full: "Systems, cloud & MLOps"
+    cluster: cs
+    state: solid
+    ox: 230.3
+    oy: 325.0
+    ly: 325.0
+    side: start
+    depth: 3
+    fs: 8.5
+  - id: generative
+    label: "Generative models"
+    full: "Generative models & diffusion"
+    cluster: learning
+    state: solid
+    ox: 156.0
+    oy: 344.2
+    ly: 344.2
+    side: end
+    depth: 3
+    fs: 8.5
+  - id: ml
+    label: "Machine learning"
+    full: "Machine learning"
+    cluster: learning
+    state: solid
+    ox: 192.5
+    oy: 243.0
+    ly: 243.0
+    side: start
+    depth: 4
+    fs: 10.0
+  - id: dl
+    label: "Deep learning"
+    full: "Deep learning"
+    cluster: learning
+    state: solid
+    ox: 190.2
+    oy: 154.8
+    ly: 154.8
+    side: start
+    depth: 4
+    fs: 10.0
+  - id: rl
+    label: "Reinforcement learning"
+    full: "Reinforcement learning"
+    cluster: learning
+    state: solid
+    ox: 257.9
+    oy: 300.7
+    ly: 300.7
+    side: start
+    depth: 2
+    fs: 7.2
+  - id: llm
+    label: "LLMs & agents"
+    full: "LLMs & multi-agent systems"
+    cluster: learning
+    state: solid
+    ox: 143.3
+    oy: 126.0
+    ly: 126.0
+    side: start
+    depth: 3
+    fs: 8.5
+  - id: geometric-dl
+    label: "Geometric DL"
+    full: "Geometric deep learning"
+    cluster: vision
+    state: target
+    ox: 152.0
+    oy: 268.1
+    ly: 268.1
+    side: start
+    depth: 1
+    fs: 6.2
+  - id: recon3d
+    label: "3D reconstruction"
+    full: "3D reconstruction & Gaussian splatting"
+    cluster: vision
+    state: solid
+    ox: 270.0
+    oy: 183.5
+    ly: 183.5
+    side: start
+    depth: 3
+    fs: 8.5
+  - id: cv
+    label: "Computer vision"
+    full: "Computer vision"
+    cluster: vision
+    state: solid
+    ox: 240.2
+    oy: 97.3
+    ly: 97.3
+    side: start
+    depth: 4
+    fs: 10.0
+  - id: pose-tracking
+    label: "Pose & tracking"
+    full: "Pose estimation & multi-object tracking"
+    cluster: vision
+    state: solid
+    ox: 126.4
+    oy: 261.2
+    ly: 261.2
+    side: end
+    depth: 4
+    fs: 10.0
+  - id: gnn
+    label: "Graph neural nets"
+    full: "Graph neural networks"
+    cluster: vision
+    state: solid
+    ox: 134.7
+    oy: 202.0
+    ly: 202.0
+    side: end
+    depth: 2
+    fs: 7.2
+  - id: assimilation
+    label: "Data assimilation"
+    full: "Data assimilation & inverse problems"
+    cluster: estimation
+    state: learning
+    ox: 171.5
+    oy: 154.2
+    ly: 154.2
+    side: end
+    depth: 1
+    fs: 6.2
+  - id: cpsec
+    label: "CPS security"
+    full: "Cyber-physical systems security"
+    cluster: estimation
+    state: solid
+    ox: 187.3
+    oy: 317.4
+    ly: 317.4
+    side: end
+    depth: 3
+    fs: 8.5
+  - id: dsp
+    label: "Signal processing"
+    full: "Signal processing & SDR"
+    cluster: estimation
+    state: solid
+    ox: 240.8
+    oy: 12.8
+    ly: 12.8
+    side: start
+    depth: 2
+    fs: 7.2
+  - id: writing
+    label: "Writing & teaching"
+    full: "Technical writing & teaching"
+    cluster: comms
+    state: solid
+    ox: 114.3
+    oy: 131.3
+    ly: 131.3
+    side: end
+    depth: 3
+    fs: 8.5
+  - id: phil-ai
+    label: "Philosophy of AI"
+    full: "Philosophy of AI"
+    cluster: comms
+    state: solid
+    ox: 263.8
+    oy: 126.1
+    ly: 126.1
+    side: start
+    depth: 3
+    fs: 8.5
+
+edges:
+  - from: applied-physics
+    to: quantum-physics
+    reason: "the degree concentrated here"
+  - from: applied-physics
+    to: astrophysics
+    reason: "computational methods coursework at UCSC"
+  - from: applied-physics
+    to: fluid-dynamics
+    reason: "continuum mechanics, now pointed at ocean state"
+  - from: quantum-physics
+    to: condensed-matter
+    reason: "condensed matter is many-body quantum mechanics; the Velasco Lab work was its experimental face"
+  - from: quantum-physics
+    to: quantum-computing
+    reason: "a qubit is a two-level quantum system"
+  - from: quantum-computing
+    to: linear-algebra
+    reason: "state vectors, unitaries and tensor products are linear algebra wearing a hat"
+  - from: linear-algebra
+    to: least-squares
+    reason: "the pseudoinverse is the four-subspaces picture made concrete"
+  - from: linear-algebra
+    to: probability
+    reason: "covariance is a linear operator; its eigendecomposition is the Gaussian's shape"
+  - from: linear-algebra
+    to: optimization
+    reason: "normal equations, and conditioning"
+  - from: least-squares
+    to: optimization
+    reason: "the convex case that still has a closed form"
+  - from: probability
+    to: optimization
+    reason: "maximum likelihood turns a density into an objective"
+  - from: real-analysis
+    to: probability
+    reason: "the rigour underneath measure and convergence"
+  - from: real-analysis
+    to: optimization
+    reason: "continuity and convergence, stated properly"
+  - from: least-squares
+    to: ml
+    reason: "linear regression is the base case of supervised learning"
+  - from: probability
+    to: ml
+    reason: "likelihood, Bayes, generative versus discriminative"
+  - from: optimization
+    to: ml
+    reason: "training a model is solving an optimisation problem"
+  - from: optimization
+    to: dl
+    reason: "SGD and Adam are the whole training loop"
+  - from: linear-algebra
+    to: dl
+    reason: "every layer is a tensor contraction"
+  - from: algorithms
+    to: ml
+    reason: "complexity and dynamic programming recur in inference and in RL"
+  - from: ml
+    to: dl
+    reason: "deep learning is machine learning with learned representations"
+  - from: ml
+    to: rl
+    reason: "the sequential-decision branch"
+  - from: dl
+    to: rl
+    reason: "function approximation for value and policy"
+  - from: dl
+    to: generative
+    reason: "U-Nets and denoising networks"
+  - from: dl
+    to: llm
+    reason: "transformers"
+  - from: dl
+    to: gnn
+    reason: "message passing as a layer type"
+  - from: dl
+    to: cv
+    reason: "modern computer vision is deep learning"
+  - from: generative
+    to: probability
+    reason: "diffusion is a learned reversal of a Gaussian noising process"
+  - from: llm
+    to: rl
+    reason: "the RLHF-style adversarial probing in ToSSim"
+  - from: cv
+    to: pose-tracking
+    reason: "detection, then keypoints, then identity held over time"
+  - from: pose-tracking
+    to: gnn
+    reason: "ST-GCN treats a skeleton as a graph evolving over time"
+  - from: cv
+    to: recon3d
+    reason: "multi-view geometry"
+  - from: recon3d
+    to: probability
+    reason: "a 3D Gaussian splat is an anisotropic multivariate Gaussian whose covariance you optimise"
+  - from: recon3d
+    to: linear-algebra
+    reason: "the RSSᵀRᵀ covariance factorisation, and projection"
+  - from: cv
+    to: geometric-dl
+    reason: "where the vision work is headed: symmetry and structure as priors"
+  - from: gnn
+    to: geometric-dl
+    reason: "graph nets are the discrete case of that programme"
+  - from: geometric-dl
+    to: applied-physics
+    reason: "equivariance is a symmetry argument of the kind physics already trades in"
+  - from: cv
+    to: assimilation
+    reason: "both are inverse problems: recover a hidden field from partial, indirect observations"
+  - from: assimilation
+    to: probability
+    reason: "B and R are covariances; the posterior is Gaussian"
+  - from: assimilation
+    to: least-squares
+    reason: "the gain K = BHᵀ(HBHᵀ+R)⁻¹ is a best linear unbiased estimator"
+  - from: assimilation
+    to: fluid-dynamics
+    reason: "the forward model is the ocean"
+  - from: assimilation
+    to: cpsec
+    reason: "if the estimate can be moved, the physical model becomes the oracle"
+  - from: cpsec
+    to: dsp
+    reason: "satcom exposure and downconversion detection"
+  - from: cpsec
+    to: systems
+    reason: "the scanning harnesses and zgrab2 modules"
+  - from: writing
+    to: quantum-computing
+    reason: "QuantumGrad: quantum computing was the teaching platform"
+  - from: writing
+    to: phil-ai
+    reason: "the AI & Society paper"
+  - from: systems
+    to: dl
+    reason: "GPU training, and the Metal/MPS port in mpsplat"
+  - from: systems
+    to: llm
+    reason: "vLLM serving"

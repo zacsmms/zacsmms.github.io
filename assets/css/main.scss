@@ -567,3 +567,329 @@ mjx-container[display] {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* --- Resume + knowledge page --------------------------------------------- */
+/* /knowledge/ is prose, not a diagram. The resume half is hand-written; the
+   topic half is generated from _data/knowledge.yml, so it cannot drift from the
+   orbit on the home page that reads the same file. */
+
+.cv {
+  max-width: var(--measure);
+}
+
+.cv-section {
+  margin-top: 4.5rem;
+}
+
+.cv-section h2 {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.cv-section > p {
+  color: var(--ink-soft);
+  margin: 0 0 1.25rem;
+}
+
+.cv-item {
+  margin-bottom: 2.5rem;
+}
+
+.cv-item:last-child {
+  margin-bottom: 0;
+}
+
+.cv-item h3 {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0 0 0.3rem;
+}
+
+.cv-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  margin: 0 0 0.8rem;
+}
+
+.cv-meta a {
+  color: var(--muted);
+}
+
+.cv-item p,
+.cv-item li {
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+.cv-item ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.cv-item li {
+  margin-bottom: 0.5rem;
+}
+
+.cv-item li::marker {
+  color: var(--muted);
+}
+
+/* The run of links from a piece of work down into the topic list below. */
+
+.cv-topics {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin: 0.9rem 0 0;
+}
+
+.cv-topics a {
+  color: var(--muted);
+  text-decoration-color: var(--rule);
+}
+
+.cv-topics a:hover {
+  color: var(--accent);
+}
+
+/* --- The topic list ------------------------------------------------------ */
+
+.topic-key {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin: -0.5rem 0 2.75rem;
+}
+
+.topics-group {
+  margin-bottom: 3rem;
+}
+
+.topics-group:last-child {
+  margin-bottom: 0;
+}
+
+.topics-group h3 {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}
+
+.topic-entry {
+  margin-bottom: 1.75rem;
+  scroll-margin-top: 2rem;
+}
+
+.topics-group .topic-entry:last-child {
+  margin-bottom: 0;
+}
+
+.topic-name {
+  margin: 0 0 0.35rem;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+}
+
+.topic-state {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* The four tiers, same scale the orbit uses: weight and colour, never a number. */
+
+.topic-name.is-d4,
+.topic-key .is-d4 {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.topic-name.is-d3,
+.topic-key .is-d3 {
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.topic-name.is-d2,
+.topic-key .is-d2 {
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.topic-name.is-d1,
+.topic-key .is-d1 {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.topic-links {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1rem;
+  border-left: 1px solid var(--rule);
+}
+
+.topic-links li {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
+.topic-links li:last-child {
+  margin-bottom: 0;
+}
+
+.topic-links a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+}
+
+.topic-links a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.topic-entry:target .topic-name {
+  color: var(--accent);
+}
+
+/* --- Home page orbit ----------------------------------------------------- */
+/* The small circle beside the bio. Hidden until its script runs, so a reader
+   without JavaScript gets no empty frame. */
+
+.orbit-link[hidden] {
+  display: none;
+}
+
+.orbit-link {
+  display: block;
+  width: min(26rem, 100%);
+  margin: 3rem auto 0;
+  text-decoration: none;
+  border: 0;
+  color: var(--muted);
+}
+
+.orbit-link svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.orbit-caption {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--muted);
+}
+
+.orbit-link:hover .orbit-caption,
+.orbit-link:focus-visible .orbit-caption {
+  color: var(--accent);
+}
+
+.orbit-chord {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 0.7;
+}
+
+.orbit-dot {
+  fill: var(--accent);
+  opacity: 0.85;
+}
+
+.orbit-name {
+  /* size comes from the data, per topic; weight and colour follow the same tier */
+  font-family: var(--font-mono);
+  letter-spacing: 0.01em;
+  fill: var(--ink-soft);
+}
+
+.orbit-name.is-d4 {
+  font-weight: 600;
+  fill: var(--ink);
+}
+
+.orbit-name.is-d3 {
+  font-weight: 500;
+}
+
+.orbit-name.is-d2 {
+  font-weight: 400;
+}
+
+.orbit-name.is-d1 {
+  font-weight: 400;
+  fill: var(--muted);
+}
+
+.orbit-dot.is-open {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.1;
+}
+
+.orbit-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 10px;
+  border-radius: 50%;
+}
+
+/* Pin it to the right of the viewport, vertically centred, so it stays with the
+   reader instead of scrolling away with the bio.
+   95em is not arbitrary. The text column is 52rem, so the right margin only has
+   room for the orbit above about 1392px, and only has room for it at a legible
+   size above about 1520px: pinned any narrower, the smallest tier falls under 5px.
+   The width formula holds 24px of clearance from the prose as the viewport grows.
+   Narrower than that, or shorter than 40em, it sits in flow under the bio instead. */
+@media (min-width: 95em) and (min-height: 40em) {
+  .orbit-slot {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+
+  .orbit-link {
+    /* as much of the page margin as there is, within reason: the names are
+       small here by choice, and this is the width that decides how small */
+    width: clamp(14rem, calc(50vw - 29rem), 32rem);
+    margin: 0;
+  }
+}
+
+.orbit-web {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 0.5;
+  opacity: 0.72;
+}

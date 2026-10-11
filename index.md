@@ -15,6 +15,25 @@ During grad school I have worked on real-time pose estimation, diffusion models,
 
 I'm currently looking for part-time CV/ML research and engineering roles, and applying to PhD programs for Fall 2028 admission. Get in touch if you'd like to collaborate or just talk shop.
 
+<div class="orbit-slot">
+<a class="orbit-link" href="{{ '/knowledge/' | relative_url }}" data-orbit-link hidden aria-label="What I know: where I studied, what I built, and the topics underneath it"><svg data-orbit-svg viewBox="0 0 379 360" aria-hidden="true" focusable="false"></svg><span class="orbit-caption">What I know</span></a>
+<script type="application/json" data-orbit>{
+"vw": {{ site.data.knowledge.orbit_width }},
+"vh": {{ site.data.knowledge.orbit_height }},
+"ids": {{ site.data.knowledge.nodes | map: 'id' | jsonify }},
+"labels": {{ site.data.knowledge.nodes | map: 'label' | jsonify }},
+"states": {{ site.data.knowledge.nodes | map: 'state' | jsonify }},
+"ox": {{ site.data.knowledge.nodes | map: 'ox' | jsonify }},
+"oy": {{ site.data.knowledge.nodes | map: 'oy' | jsonify }},
+"ly": {{ site.data.knowledge.nodes | map: 'ly' | jsonify }},
+"side": {{ site.data.knowledge.nodes | map: 'side' | jsonify }},
+"fs": {{ site.data.knowledge.nodes | map: 'fs' | jsonify }},
+"depth": {{ site.data.knowledge.nodes | map: 'depth' | jsonify }},
+"ef": {{ site.data.knowledge.edges | map: 'from' | jsonify }},
+"et": {{ site.data.knowledge.edges | map: 'to' | jsonify }}
+}</script>
+</div>
+
 </section>
 
 <section class="writing" id="writing">
@@ -56,3 +75,4 @@ I'm currently looking for part-time CV/ML research and engineering roles, and ap
 </section>
 
 <script src="{{ '/assets/js/filter.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/home-graph.js' | relative_url }}" defer></script>
