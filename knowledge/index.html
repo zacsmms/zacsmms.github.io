@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" /><title>What I know · Zachary Scott-Murphy</title>
+<meta name="description" content="Where I studied and what I built, and a map of the topics underneath it — each one with what it connects to and why." />
+<link rel="canonical" href="https://zacsmms.github.io/knowledge/" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="What I know" />
+<meta property="og:description" content="Where I studied and what I built, and a map of the topics underneath it — each one with what it connects to and why." />
+<meta property="og:url" content="https://zacsmms.github.io/knowledge/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M6 26V6' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M6 26h20' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M8 24L24 9' stroke='%231f77b4' stroke-width='3' fill='none'/><circle cx='24' cy='9' r='3.5' fill='%231f77b4'/></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/assets/css/main.css" /><link type="application/atom+xml" rel="alternate" href="https://zacsmms.github.io/feed.xml" title="Zachary Scott-Murphy" /></head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="site-name" href="/">Zachary Scott-Murphy</a>
+    </header>
+
+    <main id="main">
+      <section class="intro">
+
+  <p class="eyebrow">Berkeley, California</p>
+
+  <h1 id="what-i-know-and-where-ive-had-to-use-it">What I know, and where I’ve had to <em>use</em> it.</h1>
+
+  <p>Above: where I studied and what I built. Below: the topics underneath that work, grouped by
+family, each one listing what it touches and why. The connections are drawn by relation
+rather than by lineage — a link means two topics share machinery or a question, not that one
+led me to the other. Three of them are things I am working through now, and one is a
+direction rather than a claim. The type weight is a depth grade I did not write; the note
+above the list says where it came from.</p>
+
+</section>
+
+<section class="cv">
+
+<div class="cv-section">
+
+    <h2 id="now">Now</h2>
+
+    <p>Computer science master’s student at Georgia Tech, with an undergraduate background in
+applied physics. Looking for part-time computer vision and machine learning research or
+engineering work, and applying to PhD programmes for Fall 2028 admission.</p>
+
+  </div>
+
+<div class="cv-section">
+  <h2>Education</h2>
+
+  <div class="cv-item">
+    <h3>Georgia Institute of Technology</h3>
+    <p class="cv-meta">M.S. Computer Science · expected December 2026</p>
+    <p>Computer Vision, Machine Learning, Deep Learning, Quantum Computing, Graduate
+    Algorithms, and Reinforcement Learning (in progress).</p>
+  </div>
+
+  <div class="cv-item">
+    <h3>University of California, Santa Cruz</h3>
+    <p class="cv-meta">B.S. Applied Physics with Honors · June 2024</p>
+    <p>College Scholars Program; Dean's Honors, Fall 2023.</p>
+  </div>
+</div>
+
+<div class="cv-section">
+  <h2>Where the work happened</h2>
+
+  <div class="cv-item">
+    <h3>MPCP</h3>
+    <p class="cv-meta">Lead founding engineer · 2025–2026</p>
+    <ul>
+      <li>Built a six-stage perception-to-reasoning pipeline for real-time sports coaching —
+      YOLOv8 detection, RTMPose keypoints, multi-person tracking, ST-GCN action embeddings,
+      vLLM reasoning — running at twice real time on CPU.</li>
+      <li>Replaced the hand-written sport-specific heuristics with an evidence-first
+      architecture: ST-GCN embeddings pretrained on NTU RGB+D (60 action classes, 56k
+      sequences) are passed to the reasoning stage as structured evidence packets, with
+      persistent temporal state and confidence decay, so each decision can be traced back to
+      observable body mechanics.</li>
+      <li>Validated across two ACC competition days with five simultaneous athletes, holding
+      swimmer identity through occlusion and lane changes via FastReID over six-hour sessions
+      without human intervention.</li>
+      <li>Provisioned the AWS infrastructure from zero (VPC, IAM Identity Center, EC2, RDS,
+      ALB/ACM, Docker Compose) across dev, prod and field, and led a team of five.</li>
+    </ul>
+    <p class="cv-topics">Topics: <a href="#t-pose-tracking">pose estimation and tracking</a>,
+    <a href="#t-cv">computer vision</a>, <a href="#t-gnn">graph neural networks</a>,
+    <a href="#t-llm">LLMs and multi-agent systems</a>, <a href="#t-systems">systems and
+    cloud</a>.</p>
+  </div>
+
+  <div class="cv-item">
+    <h3>FractureFill — generative fracture surface synthesis</h3>
+    <p class="cv-meta">March 2026</p>
+    <ul>
+      <li>Conditional diffusion for fracture geometry and appearance (albedo, normals,
+      displacement): a FiLM-conditioned U-Net with DDPM, trained on a procedural pipeline of
+      3,000 samples, reaching seam L1 of 0.001 and 21.3 dB PSNR at under 100 ms inference.</li>
+    </ul>
+    <p class="cv-topics">Topics: <a href="#t-generative">generative models and diffusion</a>,
+    <a href="#t-dl">deep learning</a>, <a href="#t-probability">probability</a>.</p>
+  </div>
+
+  <div class="cv-item">
+    <h3>Real-time multi-object tracking and pose estimation</h3>
+    <p class="cv-meta">Fall 2025</p>
+    <ul>
+      <li>Adapted <em>Tracking Everything Everywhere All at Once</em> (CVPR 2024) from dense
+      point tracking to multi-human re-identification, reaching 30+ FPS on consumer GPUs with
+      trajectory smoothing and sparse feature matching.</li>
+      <li>Extended it to 3D keypoint fusion and temporal action segmentation, then used it as
+      the pose stage feeding the MPCP pipeline.</li>
+    </ul>
+    <p class="cv-topics">Topics: <a href="#t-pose-tracking">pose estimation and tracking</a>,
+    <a href="#t-cv">computer vision</a>, <a href="#t-recon3d">3D reconstruction</a>.</p>
+  </div>
+
+  <div class="cv-item">
+    <h3>ToSSim — emergent misalignment in multi-agent social deduction</h3>
+    <p class="cv-meta">Summer 2025</p>
+    <ul>
+      <li>Fine-tuned nine transformer models up to 32B parameters with LoRA and QLoRA to study
+      how LLM agents misalign in adversarial, multi-turn settings.</li>
+      <li>Built the supervised fine-tuning pipeline over annotated action traces, with
+      RLHF-style adversarial probing, and schema-validated XML outputs so agents could parse
+      one another reliably; evaluated over 500 episodes.</li>
+    </ul>
+    <p class="cv-topics">Topics: <a href="#t-llm">LLMs and multi-agent systems</a>,
+    <a href="#t-rl">reinforcement learning</a>, <a href="#t-dl">deep learning</a>,
+    <a href="#t-phil-ai">philosophy of AI</a>.</p>
+  </div>
+
+  <div class="cv-item">
+    <h3>QuantumGrad</h3>
+    <p class="cv-meta">Lead organiser and <a href="https://www.qiskit.org/advocates">IBM Qiskit
+    Advocate</a> · August 2024–2025</p>
+    <ul>
+      <li>Directed Qiskit Fall Fest 2024 for 200+ participants across three challenge tracks,
+      and wrote the Classiq challenge notebook distributed to the community.</li>
+      <li>Ran four workshops a semester, contributed to the Qiskit open-source ecosystem, and
+      mentored peers at MIT iQuHack, IBM watsonx.ai, and Qiskit Global Summer School.</li>
+    </ul>
+    <p class="cv-topics">Topics: <a href="#t-quantum-computing">quantum computing</a>,
+    <a href="#t-writing">technical writing and teaching</a>.</p>
+  </div>
+
+  <div class="cv-item">
+    <h3>Velasco Lab, UC Santa Cruz</h3>
+    <p class="cv-meta">Research intern · May 2023–June 2024</p>
+    <ul>
+      <li>Measured charge transport in semiconductor quantum materials by C-AFM and STM, and
+      built measurement workflows that cut the variation between sessions, so fabrication
+      parameters could be iterated on faster.</li>
+      <li>Presented the analyses to cross-disciplinary teams; the findings fed fabrication
+      parameter choices for later experimental runs.</li>
+    </ul>
+    <p class="cv-topics">Topics: <a href="#t-condensed-matter">condensed matter</a>,
+    <a href="#t-quantum-physics">quantum physics</a>, <a href="#t-applied-physics">applied
+    physics</a>.</p>
+  </div>
+</div>
+
+<div class="cv-section">
+  <h2>Writing</h2>
+
+  <div class="cv-item">
+    <h3>On Becoming a Self in the Age of AI: Cognitive Sovereignty and the Drift of Human
+    Judgment</h3>
+    <p class="cv-meta">Under review at <em>AI &amp; SOCIETY</em>, 2026</p>
+    <p>Shorter pieces, mostly on the mathematics underneath this work, are
+    <a href="/#writing">on the front page</a>.</p>
+  </div>
+</div>
+
+<div class="cv-section topics">
+  <h2>The topics underneath</h2>
+
+  <p class="topic-key">Type weight marks depth —
+    <span class="is-d4">deepest</span>,
+    <span class="is-d3">solid</span>,
+    <span class="is-d2">working</span>,
+    <span class="is-d1">newest</span>.
+    Graded by an AI model reading my transcript, repositories, CV and writing —
+    not by me.</p>
+  <div class="topics-group">
+    <h3>Physics</h3>
+    <div class="topic-entry" id="t-condensed-matter">
+      <h4 class="topic-name is-d3">Condensed matter &amp; quantum materials</h4>
+      <ul class="topic-links">
+        <li><a href="#t-quantum-physics">Quantum physics</a> — condensed matter is many-body quantum mechanics; the Velasco Lab work was its experimental face</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-quantum-physics">
+      <h4 class="topic-name is-d3">Quantum physics</h4>
+      <ul class="topic-links">
+        <li><a href="#t-applied-physics">Applied physics</a> — the degree concentrated here</li>
+        <li><a href="#t-condensed-matter">Condensed matter &amp; quantum materials</a> — condensed matter is many-body quantum mechanics; the Velasco Lab work was its experimental face</li>
+        <li><a href="#t-quantum-computing">Quantum computing</a> — a qubit is a two-level quantum system</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-quantum-computing">
+      <h4 class="topic-name is-d4">Quantum computing</h4>
+      <ul class="topic-links">
+        <li><a href="#t-quantum-physics">Quantum physics</a> — a qubit is a two-level quantum system</li>
+        <li><a href="#t-linear-algebra">Linear algebra (SVD, PCA)</a> — state vectors, unitaries and tensor products are linear algebra wearing a hat</li>
+        <li><a href="#t-writing">Technical writing &amp; teaching</a> — QuantumGrad: quantum computing was the teaching platform</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-applied-physics">
+      <h4 class="topic-name is-d4">Applied physics</h4>
+      <ul class="topic-links">
+        <li><a href="#t-quantum-physics">Quantum physics</a> — the degree concentrated here</li>
+        <li><a href="#t-astrophysics">Computational astrophysics</a> — computational methods coursework at UCSC</li>
+        <li><a href="#t-fluid-dynamics">Fluid dynamics</a> — continuum mechanics, now pointed at ocean state</li>
+        <li><a href="#t-geometric-dl">Geometric deep learning</a> — equivariance is a symmetry argument of the kind physics already trades in</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-astrophysics">
+      <h4 class="topic-name is-d1">Computational astrophysics</h4>
+      <ul class="topic-links">
+        <li><a href="#t-applied-physics">Applied physics</a> — computational methods coursework at UCSC</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-fluid-dynamics">
+      <h4 class="topic-name is-d1">Fluid dynamics <span class="topic-state">learning it now</span></h4>
+      <ul class="topic-links">
+        <li><a href="#t-applied-physics">Applied physics</a> — continuum mechanics, now pointed at ocean state</li>
+        <li><a href="#t-assimilation">Data assimilation &amp; inverse problems</a> — the forward model is the ocean</li>
+      </ul>
+    </div>
+  </div>
+  <div class="topics-group">
+    <h3>Mathematics</h3>
+    <div class="topic-entry" id="t-linear-algebra">
+      <h4 class="topic-name is-d4">Linear algebra (SVD, PCA)</h4>
+      <ul class="topic-links">
+        <li><a href="#t-quantum-computing">Quantum computing</a> — state vectors, unitaries and tensor products are linear algebra wearing a hat</li>
+        <li><a href="#t-least-squares">Least squares &amp; the pseudoinverse</a> — the pseudoinverse is the four-subspaces picture made concrete</li>
+        <li><a href="#t-probability">Probability &amp; multivariate Gaussians</a> — covariance is a linear operator; its eigendecomposition is the Gaussian's shape</li>
+        <li><a href="#t-optimization">Optimisation</a> — normal equations, and conditioning</li>
+        <li><a href="#t-dl">Deep learning</a> — every layer is a tensor contraction</li>
+        <li><a href="#t-recon3d">3D reconstruction &amp; Gaussian splatting</a> — the RSSᵀRᵀ covariance factorisation, and projection</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-probability">
+      <h4 class="topic-name is-d4">Probability &amp; multivariate Gaussians</h4>
+      <ul class="topic-links">
+        <li><a href="#t-linear-algebra">Linear algebra (SVD, PCA)</a> — covariance is a linear operator; its eigendecomposition is the Gaussian's shape</li>
+        <li><a href="#t-optimization">Optimisation</a> — maximum likelihood turns a density into an objective</li>
+        <li><a href="#t-real-analysis">Real analysis</a> — the rigour underneath measure and convergence</li>
+        <li><a href="#t-ml">Machine learning</a> — likelihood, Bayes, generative versus discriminative</li>
+        <li><a href="#t-generative">Generative models &amp; diffusion</a> — diffusion is a learned reversal of a Gaussian noising process</li>
+        <li><a href="#t-recon3d">3D reconstruction &amp; Gaussian splatting</a> — a 3D Gaussian splat is an anisotropic multivariate Gaussian whose covariance you optimise</li>
+        <li><a href="#t-assimilation">Data assimilation &amp; inverse problems</a> — B and R are covariances; the posterior is Gaussian</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-least-squares">
+      <h4 class="topic-name is-d3">Least squares &amp; the pseudoinverse</h4>
+      <ul class="topic-links">
+        <li><a href="#t-linear-algebra">Linear algebra (SVD, PCA)</a> — the pseudoinverse is the four-subspaces picture made concrete</li>
+        <li><a href="#t-optimization">Optimisation</a> — the convex case that still has a closed form</li>
+        <li><a href="#t-ml">Machine learning</a> — linear regression is the base case of supervised learning</li>
+        <li><a href="#t-assimilation">Data assimilation &amp; inverse problems</a> — the gain K = BHᵀ(HBHᵀ+R)⁻¹ is a best linear unbiased estimator</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-optimization">
+      <h4 class="topic-name is-d3">Optimisation</h4>
+      <ul class="topic-links">
+        <li><a href="#t-linear-algebra">Linear algebra (SVD, PCA)</a> — normal equations, and conditioning</li>
+        <li><a href="#t-least-squares">Least squares &amp; the pseudoinverse</a> — the convex case that still has a closed form</li>
+        <li><a href="#t-probability">Probability &amp; multivariate Gaussians</a> — maximum likelihood turns a density into an objective</li>
+        <li><a href="#t-real-analysis">Real analysis</a> — continuity and convergence, stated properly</li>
+        <li><a href="#t-ml">Machine learning</a> — training a model is solving an optimisation problem</li>
+        <li><a href="#t-dl">Deep learning</a> — SGD and Adam are the whole training loop</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-real-analysis">
+      <h4 class="topic-name is-d1">Real analysis <span class="topic-state">learning it now</span></h4>
+      <ul class="topic-links">
+        <li><a href="#t-probability">Probability &amp; multivariate Gaussians</a> — the rigour underneath measure and convergence</li>
+        <li><a href="#t-optimization">Optimisation</a> — continuity and convergence, stated properly</li>
+      </ul>
+    </div>
+  </div>
+  <div class="topics-group">
+    <h3>Learning</h3>
+    <div class="topic-entry" id="t-generative">
+      <h4 class="topic-name is-d3">Generative models &amp; diffusion</h4>
+      <ul class="topic-links">
+        <li><a href="#t-dl">Deep learning</a> — U-Nets and denoising networks</li>
+        <li><a href="#t-probability">Probability &amp; multivariate Gaussians</a> — diffusion is a learned reversal of a Gaussian noising process</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-ml">
+      <h4 class="topic-name is-d4">Machine learning</h4>
+      <ul class="topic-links">
+        <li><a href="#t-least-squares">Least squares &amp; the pseudoinverse</a> — linear regression is the base case of supervised learning</li>
+        <li><a href="#t-probability">Probability &amp; multivariate Gaussians</a> — likelihood, Bayes, generative versus discriminative</li>
+        <li><a href="#t-optimization">Optimisation</a> — training a model is solving an optimisation problem</li>
+        <li><a href="#t-algorithms">Graduate algorithms</a> — complexity and dynamic programming recur in inference and in RL</li>
+        <li><a href="#t-dl">Deep learning</a> — deep learning is machine learning with learned representations</li>
+        <li><a href="#t-rl">Reinforcement learning</a> — the sequential-decision branch</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-dl">
+      <h4 class="topic-name is-d4">Deep learning</h4>
+      <ul class="topic-links">
+        <li><a href="#t-optimization">Optimisation</a> — SGD and Adam are the whole training loop</li>
+        <li><a href="#t-linear-algebra">Linear algebra (SVD, PCA)</a> — every layer is a tensor contraction</li>
+        <li><a href="#t-ml">Machine learning</a> — deep learning is machine learning with learned representations</li>
+        <li><a href="#t-rl">Reinforcement learning</a> — function approximation for value and policy</li>
+        <li><a href="#t-generative">Generative models &amp; diffusion</a> — U-Nets and denoising networks</li>
+        <li><a href="#t-llm">LLMs &amp; multi-agent systems</a> — transformers</li>
+        <li><a href="#t-gnn">Graph neural networks</a> — message passing as a layer type</li>
+        <li><a href="#t-cv">Computer vision</a> — modern computer vision is deep learning</li>
+        <li><a href="#t-systems">Systems, cloud &amp; MLOps</a> — GPU training, and the Metal/MPS port in mpsplat</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-rl">
+      <h4 class="topic-name is-d2">Reinforcement learning</h4>
+      <ul class="topic-links">
+        <li><a href="#t-ml">Machine learning</a> — the sequential-decision branch</li>
+        <li><a href="#t-dl">Deep learning</a> — function approximation for value and policy</li>
+        <li><a href="#t-llm">LLMs &amp; multi-agent systems</a> — the RLHF-style adversarial probing in ToSSim</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-llm">
+      <h4 class="topic-name is-d3">LLMs &amp; multi-agent systems</h4>
+      <ul class="topic-links">
+        <li><a href="#t-dl">Deep learning</a> — transformers</li>
+        <li><a href="#t-rl">Reinforcement learning</a> — the RLHF-style adversarial probing in ToSSim</li>
+        <li><a href="#t-systems">Systems, cloud &amp; MLOps</a> — vLLM serving</li>
+      </ul>
+    </div>
+  </div>
+  <div class="topics-group">
+    <h3>Vision &amp; 3D</h3>
+    <div class="topic-entry" id="t-geometric-dl">
+      <h4 class="topic-name is-d1">Geometric deep learning <span class="topic-state">where I'm heading</span></h4>
+      <ul class="topic-links">
+        <li><a href="#t-cv">Computer vision</a> — where the vision work is headed: symmetry and structure as priors</li>
+        <li><a href="#t-gnn">Graph neural networks</a> — graph nets are the discrete case of that programme</li>
+        <li><a href="#t-applied-physics">Applied physics</a> — equivariance is a symmetry argument of the kind physics already trades in</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-recon3d">
+      <h4 class="topic-name is-d3">3D reconstruction &amp; Gaussian splatting</h4>
+      <ul class="topic-links">
+        <li><a href="#t-cv">Computer vision</a> — multi-view geometry</li>
+        <li><a href="#t-probability">Probability &amp; multivariate Gaussians</a> — a 3D Gaussian splat is an anisotropic multivariate Gaussian whose covariance you optimise</li>
+        <li><a href="#t-linear-algebra">Linear algebra (SVD, PCA)</a> — the RSSᵀRᵀ covariance factorisation, and projection</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-cv">
+      <h4 class="topic-name is-d4">Computer vision</h4>
+      <ul class="topic-links">
+        <li><a href="#t-dl">Deep learning</a> — modern computer vision is deep learning</li>
+        <li><a href="#t-pose-tracking">Pose estimation &amp; multi-object tracking</a> — detection, then keypoints, then identity held over time</li>
+        <li><a href="#t-recon3d">3D reconstruction &amp; Gaussian splatting</a> — multi-view geometry</li>
+        <li><a href="#t-geometric-dl">Geometric deep learning</a> — where the vision work is headed: symmetry and structure as priors</li>
+        <li><a href="#t-assimilation">Data assimilation &amp; inverse problems</a> — both are inverse problems: recover a hidden field from partial, indirect observations</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-pose-tracking">
+      <h4 class="topic-name is-d4">Pose estimation &amp; multi-object tracking</h4>
+      <ul class="topic-links">
+        <li><a href="#t-cv">Computer vision</a> — detection, then keypoints, then identity held over time</li>
+        <li><a href="#t-gnn">Graph neural networks</a> — ST-GCN treats a skeleton as a graph evolving over time</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-gnn">
+      <h4 class="topic-name is-d2">Graph neural networks</h4>
+      <ul class="topic-links">
+        <li><a href="#t-dl">Deep learning</a> — message passing as a layer type</li>
+        <li><a href="#t-pose-tracking">Pose estimation &amp; multi-object tracking</a> — ST-GCN treats a skeleton as a graph evolving over time</li>
+        <li><a href="#t-geometric-dl">Geometric deep learning</a> — graph nets are the discrete case of that programme</li>
+      </ul>
+    </div>
+  </div>
+  <div class="topics-group">
+    <h3>Communication</h3>
+    <div class="topic-entry" id="t-writing">
+      <h4 class="topic-name is-d3">Technical writing &amp; teaching</h4>
+      <ul class="topic-links">
+        <li><a href="#t-quantum-computing">Quantum computing</a> — QuantumGrad: quantum computing was the teaching platform</li>
+        <li><a href="#t-phil-ai">Philosophy of AI</a> — the AI &amp; Society paper</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-phil-ai">
+      <h4 class="topic-name is-d3">Philosophy of AI</h4>
+      <ul class="topic-links">
+        <li><a href="#t-writing">Technical writing &amp; teaching</a> — the AI &amp; Society paper</li>
+      </ul>
+    </div>
+  </div>
+  <div class="topics-group">
+    <h3>Core CS</h3>
+    <div class="topic-entry" id="t-algorithms">
+      <h4 class="topic-name is-d2">Graduate algorithms</h4>
+      <ul class="topic-links">
+        <li><a href="#t-ml">Machine learning</a> — complexity and dynamic programming recur in inference and in RL</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-systems">
+      <h4 class="topic-name is-d3">Systems, cloud &amp; MLOps</h4>
+      <ul class="topic-links">
+        <li><a href="#t-cpsec">Cyber-physical systems security</a> — the scanning harnesses and zgrab2 modules</li>
+        <li><a href="#t-dl">Deep learning</a> — GPU training, and the Metal/MPS port in mpsplat</li>
+        <li><a href="#t-llm">LLMs &amp; multi-agent systems</a> — vLLM serving</li>
+      </ul>
+    </div>
+  </div>
+  <div class="topics-group">
+    <h3>Estimation &amp; security</h3>
+    <div class="topic-entry" id="t-assimilation">
+      <h4 class="topic-name is-d1">Data assimilation &amp; inverse problems <span class="topic-state">learning it now</span></h4>
+      <ul class="topic-links">
+        <li><a href="#t-cv">Computer vision</a> — both are inverse problems: recover a hidden field from partial, indirect observations</li>
+        <li><a href="#t-probability">Probability &amp; multivariate Gaussians</a> — B and R are covariances; the posterior is Gaussian</li>
+        <li><a href="#t-least-squares">Least squares &amp; the pseudoinverse</a> — the gain K = BHᵀ(HBHᵀ+R)⁻¹ is a best linear unbiased estimator</li>
+        <li><a href="#t-fluid-dynamics">Fluid dynamics</a> — the forward model is the ocean</li>
+        <li><a href="#t-cpsec">Cyber-physical systems security</a> — if the estimate can be moved, the physical model becomes the oracle</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-cpsec">
+      <h4 class="topic-name is-d3">Cyber-physical systems security</h4>
+      <ul class="topic-links">
+        <li><a href="#t-assimilation">Data assimilation &amp; inverse problems</a> — if the estimate can be moved, the physical model becomes the oracle</li>
+        <li><a href="#t-dsp">Signal processing &amp; SDR</a> — satcom exposure and downconversion detection</li>
+        <li><a href="#t-systems">Systems, cloud &amp; MLOps</a> — the scanning harnesses and zgrab2 modules</li>
+      </ul>
+    </div>
+    <div class="topic-entry" id="t-dsp">
+      <h4 class="topic-name is-d2">Signal processing &amp; SDR</h4>
+      <ul class="topic-links">
+        <li><a href="#t-cpsec">Cyber-physical systems security</a> — satcom exposure and downconversion detection</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</section>
+
+    </main>
+
+    <footer class="site-footer">
+      <span>&copy; 2026 Zachary Scott-Murphy</span>
+      <span class="footer-links">
+        <a href="mailto:zachary@scott-murphy.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="https://github.com/zacsmms">GitHub</a>
+      </span>
+    </footer>
+  </body>
+</html>
