@@ -26,8 +26,10 @@ above the list says where it came from.
 ## Now
 
 Computer science master's student at Georgia Tech, with an undergraduate background in
-applied physics. Looking for part-time computer vision and machine learning research or
-engineering work, and applying to PhD programmes for Fall 2028 admission.
+applied physics. Currently researching cyber-physical security of marine and ocean-sensing
+systems in the CPSec Lab at Georgia Tech. Looking for part-time computer vision and machine
+learning research or engineering work, and applying to PhD programmes for Fall 2028
+admission.
 
 </div>
 
@@ -50,6 +52,37 @@ engineering work, and applying to PhD programmes for Fall 2028 admission.
 
 <div class="cv-section">
   <h2>Where the work happened</h2>
+
+  <div class="cv-item">
+    <h3>CPSec Lab, Georgia Tech</h3>
+    <p class="cv-meta">Graduate researcher · August 2026–present</p>
+    <p>Cyber-physical security of marine and ocean-sensing infrastructure, advised by Prof.
+    Saman Zonouz, with day-to-day supervision from Anna Raymaker (PhD student).</p>
+    <ul>
+      <li>Built five zgrab2 scan modules — NMEA 0183, NMEA 2000 across five wire encodings,
+      Signal K, SunSpec over Modbus, and vendor web interfaces — for a census of
+      internet-exposed marine and operational-technology systems across some 6,000 hosts. They
+      were developed and scored against a simulated SunSpec device network with manifest
+      ground truth before any real host was contacted.</li>
+      <li>Found a 21.5% classification gap in a commercial device-search index: 760 hosts
+      carry NMEA sentences in banners the index never labelled as NMEA. A receive-only decode
+      of 283 live feeds recovered 11,584 unique vessel identities across 138 flag states,
+      transmitting nothing.</li>
+      <li>Closed the question of whether NMEA 2000 reaches the internet directly, as a bounded
+      negative: passive banner analysis, down-conversion cadence and diversity tests, and an
+      authorised, allowlist-gated active probe over 200 feeds added no new confirmations.</li>
+      <li>Built an inversion that recovers coastal surface current from the kinematics of
+      passing vessels, validated against HF-radar fields over seven region-windows in two
+      seasons. The pre-registered replication gate failed, and the result is the better one: a
+      characterised error floor near 0.2 m/s, with correlation monotone in signal-to-noise —
+      the threshold below which a corrupted field cannot be caught by physics.</li>
+    </ul>
+    <p class="cv-topics">Topics: <a href="#t-cpsec">cyber-physical systems security</a>,
+    <a href="#t-assimilation">data assimilation and inverse problems</a>,
+    <a href="#t-dsp">signal processing and SDR</a>,
+    <a href="#t-fluid-dynamics">fluid dynamics</a>,
+    <a href="#t-systems">systems and cloud</a>.</p>
+  </div>
 
   <div class="cv-item">
     <h3>MPCP</h3>
