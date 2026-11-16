@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" /><title>Reconstructing a Wake From Fifteen Points · Zachary Scott-Murphy</title>
+<meta name="description" content="Gappy POD recovers a cylinder wake from a handful of point sensors, and the conditioning tells you where it stops working." />
+<link rel="canonical" href="https://zacsmms.github.io/writing/gappy-pod-sparse-sensors/" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Reconstructing a Wake From Fifteen Points" />
+<meta property="og:description" content="Gappy POD recovers a cylinder wake from a handful of point sensors, and the conditioning tells you where it stops working." />
+<meta property="og:url" content="https://zacsmms.github.io/writing/gappy-pod-sparse-sensors/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M6 26V6' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M6 26h20' stroke='%23b0b0b0' stroke-width='2.5' fill='none'/><path d='M8 24L24 9' stroke='%231f77b4' stroke-width='3' fill='none'/><circle cx='24' cy='9' r='3.5' fill='%231f77b4'/></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/assets/css/main.css" /><link type="application/atom+xml" rel="alternate" href="https://zacsmms.github.io/feed.xml" title="Zachary Scott-Murphy" /><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+      },
+      options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code", "annotation", "annotation-xml"],
+        },
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="site-name" href="/">Zachary Scott-Murphy</a>
+    </header>
+
+    <main id="main">
+      <article class="post">
+  <header class="post-header">
+    <p class="eyebrow">
+      <time datetime="2026-11-10T00:00:00+00:00">10 Nov 2026</time>
+        <span class="sep">/</span>
+        <span class="tag-label">flow-reconstruction</span><span class="tag-label">fluids</span><span class="tag-label">linear-algebra</span>
+    </p>
+    <h1>Reconstructing a Wake From Fifteen Points</h1><p class="post-standfirst">Gappy POD recovers a cylinder wake from a handful of point sensors, and the conditioning tells you where it stops working.</p>
+  </header>
+
+  <div class="prose">
+    <p>Something I didn’t expect going into this: the hard part of reconstructing a fluid field is not the reconstruction, it is believing that so few measurements can be enough.</p>
+
+<p>Here is the mismatch. A direct numerical simulation of flow past a cylinder hands you vorticity at 89,351 grid points, for each of 151 snapshots. A real experiment hands you a few probes, bolted wherever you could physically fit them. That gap is the entire problem of flow reconstruction, and the oldest serious answer to it is gappy POD.</p>
+
+<p>The reason it works at all is that a wake is far lower-dimensional than its grid, which isn’t obvious until you go and look. Take the snapshots, stack each one as a column, subtract the mean, and factor the result like we did in the SVD post. The energy collapses into a handful of modes, and everything after them is detail and noise. So the field we are chasing does not really live in \(\mathbb{R}^{89351}\) at all. It lives in the span of maybe ten vectors. And ten unknowns is something we can solve for with ten measurements!</p>
+
+<p>Let’s write that down. Let \(\Phi_r\) hold the first \(r\) POD modes as columns and let \(\bar{x}\) be the mean field, so that any snapshot is approximately</p>
+
+\[x \approx \bar{x} + \Phi_r a,\]
+
+<p>for some coefficient vector \(a \in \mathbb{R}^r\). Now suppose we only get to see the field at a set of sensor locations. Call \(\Phi_r\vert_P\) the rows of the basis at those locations, and \(y\) the measurements we actually have. The coefficients then fall out of a least-squares problem posed on the sensors alone,</p>
+
+\[a^\star = \arg\min_a \left\| y - \bar{x}\vert_P - \Phi_r\vert_P\, a \right\|_2^2,\]
+
+<p>which is the same minimisation we derived the pseudoinverse for a few posts ago, just restricted to the rows we can see. Then \(\bar{x} + \Phi_r a^\star\) is the reconstruction <em>everywhere</em>, including the 89,336 points nobody measured. Note that the matrix being inverted is \(r \times r\), not \(89351 \times 89351\). Nothing is ever built at full size, which is the practical reason this scales.</p>
+
+<p>Two details are easy to get wrong and both cost you silently. Subtract the mean <em>at the sensor locations</em> before fitting, and add the full mean back after; fitting the raw readings gives you a basis trying to represent the mean flow as well as the fluctuation. And never build \(P\). It is a selection operator, rows of the identity, so <code class="language-plaintext highlighter-rouge">Phi[sensor_idx, :]</code> already <em>is</em> \(\Phi_r\vert_P\); materialising a \(p \times 89351\) matrix to achieve that is the kind of thing that turns a fast method into a slow one.</p>
+
+<p>The sanity check is that with every sensor switched on, this has to collapse back to ordinary rank-\(r\) projection. If it doesn’t, the least-squares solve is wrong somewhere. It does, to machine precision, which was a relief.</p>
+
+<figure>
+  <img src="/assets/img/gappy_reconstruction_triptych.png" alt="Cylinder wake vorticity: mean flow, first POD mode, a held-out snapshot, reconstructions from 15 and 80 sensors, and the corresponding error fields" loading="lazy" />
+  <figcaption>Top: the mean field \(\bar{x}\) and the first POD mode. Left: a held-out snapshot, the truth we are trying to recover. Centre: gappy POD reconstructions from 15 and 80 randomly placed sensors. Right: the error fields for each, on a shared scale.</figcaption>
+</figure>
+
+<h3 id="my-thoughts">My thoughts</h3>
+
+<p>What strikes me first is how little the two reconstructions differ to look at. Fifteen sensors and eighty sensors produce vortex streets of very similar shape and clarity, and if the error panels weren’t there beside them I would have called the job done at fifteen.</p>
+
+<p>The error panels are where it gets interesting. They are not noise. Both of them carry a clear periodic structure that propagates along the Kármán street, the same wavelength as the vortices themselves, just weaker at eighty sensors than at fifteen. The error is not scattered where the sensors happen to be sparse. It is locked to the flow.</p>
+
+<p>I think that is forced by the method rather than incidental to it. POD is the optimal decomposition for this ensemble, so whatever a rank-\(r\) basis cannot represent is exactly the part of the field that was least energetic across the snapshots, and in a periodic wake that residue is itself periodic. Any reconstruction built on this basis has that periodicity implicitly encoded in it. Removing the banding would mean bringing in a prior about the field from outside the basis, something that knows about the physics rather than about the covariance of the training set.</p>
+
+<h2 id="where-it-breaks">Where it breaks</h2>
+
+<p>Sweeping the sensor count is what turns this from a demonstration into a measurement, and it is the part I was most curious about. The quantity worth watching is not the error directly but the conditioning of the thing we are inverting.</p>
+
+<p>Write \(\kappa(\Phi_r\vert_P) = \sigma_{\max}/\sigma_{\min}\) for the condition number of the sensor-restricted basis. It is the factor by which the solve can turn a small error in \(y\) into a large error in \(a^\star\), so it is a direct measure of how fragile the reconstruction is before you’ve measured anything at all. One side of it is pinned: \(\Phi_r\) has orthonormal columns, and deleting rows can only shrink a vector’s norm, so \(\sigma_{\max} \le 1\) always. All of the drama is in how small \(\sigma_{\min}\) gets, which is to say, in whether the \(p\) rows you happened to draw still span the \(r\)-dimensional coefficient space properly, or nearly collapse it.</p>
+
+<p>So: fix \(r = 10\), sweep \(p\), and for each \(p\) scatter the sensors at random fifty independent times.</p>
+
+<figure>
+  <img src="/assets/img/condition_number.png" alt="Condition number of the sensor-restricted POD basis against sensor count, median and 10th-90th percentile band over 50 random draws, log scale" loading="lazy" />
+  <figcaption>Conditioning of \(\Phi_r\vert_P\) at \(r = 10\), over 50 random sensor draws per \(p\). The band is the 10th to 90th percentile. Note the vertical axis spans sixteen orders of magnitude.</figcaption>
+</figure>
+
+<h3 id="my-thoughts-1">My thoughts</h3>
+
+<p>This is the figure that changed how I think about sensor count, and it is much more violent than I expected. At \(p = r\) the median condition number sits around \(10^{13}\), with draws reaching \(10^{15}\), which is to say that at exactly ten sensors the problem is numerically useless, even though it is formally solvable. Counting unknowns tells you \(p \ge r\). Counting unknowns is not enough.</p>
+
+<p>What I didn’t anticipate was the <em>shape</em> of the recovery. It is not gradual. Between ten and about fifteen sensors the median drops roughly eleven orders of magnitude, and by twenty sensors, two per mode, it has flattened out near single digits and essentially stopped improving. Going from twenty sensors to forty buys almost nothing.</p>
+
+<p>The band is the other half of the story, and arguably the more useful half. At \(p = r\) the spread across draws is enormous: your reconstruction is a lottery, and which ten points you happened to pick decides whether you get anything at all. The band collapses at the same rate the median does. By twenty sensors the draws agree with each other, which means the method has stopped being sensitive to luck. That is the real threshold: not where the error is acceptable, but where the <em>variance between placements</em> stops mattering.</p>
+
+<p>The practical rule I take from this is to oversample by about a factor of two and never pick \(r\) anywhere near \(p\). It also sets up the obvious next question: all of this is random placement, and the whole point of choosing sensors well is to buy the same conditioning with fewer of them. That’s A05’s job, and I haven’t run it yet, so I won’t claim the result.</p>
+
+<h2 id="repairing-a-gappy-ensemble">Repairing a gappy ensemble</h2>
+
+<p>Everything above quietly assumed a clean basis to project onto, and that assumption falls over in exactly the case you care about, where the <em>training</em> snapshots are gappy too, so there was never a complete field to compute POD from in the first place.</p>
+
+<p>Everson and Sirovich’s answer is a fixed point, and it is a lovely one. Fill every missing entry with the mean of the observed entries at that spatial point. Compute a rank-\(r\) POD of the filled matrix. Re-estimate the missing entries by gappy reconstruction against that basis. Then go round again, until the estimates stop moving. The basis and the missing data refine each other, which feels like it shouldn’t be allowed.</p>
+
+<p>Worth being precise about what the inner solve sees, because I had it backwards at first. The least-squares fit runs on the entries that are <em>present</em>, not the ones that are missing. Each column brings its own observed set, its own \(P\), and its own conditioning. The gaps are never fitted. They are read off afterwards from \(\bar{x} + \Phi_r a^\star\) at the rows nobody measured, which is the same trick as the sensor problem, applied column by column to a matrix instead of once to a snapshot. The only extra rule is that observed entries are never overwritten. They are what anchors the iteration; without them the zero matrix is rank-\(r\) and fits perfectly.</p>
+
+<p>The baseline to beat is the mean-fill you started from. Here is both, swept across how much of the training ensemble has been deleted.</p>
+
+<figure>
+  <img src="/assets/img/es_missing_fraction_sweep.png" alt="Left: reconstruction error on hidden entries for mean-fill and Everson-Sirovich against fraction missing. Right: the ratio between them, with a 10x reference line" loading="lazy" />
+  <figcaption>Everson–Sirovich repair against the mean-fill baseline it starts from, at \(r = 10\) and ten sweeps. Left: relative error on the hidden entries alone. Right: the advantage over mean-fill, against the 10× line the assignment asks you to find.</figcaption>
+</figure>
+
+<h3 id="my-thoughts-2">My thoughts</h3>
+
+<p>Everson–Sirovich beats mean-fill at every missing fraction I tested, which I expected, but the margin and where it goes are the interesting part. At 30% missing it is roughly twenty-eight times better; the advantage decays smoothly and crosses ten times at around 65% missing. So the honest headline is that you can delete nearly two-thirds of a training ensemble and still recover the hidden entries an order of magnitude better than the laziest possible fill.</p>
+
+<p>The left panel is what makes the right panel readable, and I wouldn’t have trusted the ratio without it. Mean-fill is <em>flat</em>: it sits near 0.5 whether you delete 30% of the matrix or 90% of it. That makes sense in hindsight: averaging the observed entries at a spatial point is a decent estimate of that point’s mean from very few samples, and getting fewer samples barely degrades it, because the mean was never a good model of a fluctuating field in the first place. It is uniformly mediocre by construction. Which means the falling ratio is entirely Everson–Sirovich degrading, not the baseline improving, and the 10× crossing is a real statement about the method rather than an artefact of dividing two moving things.</p>
+
+<p>The limiting case worth naming is 100% missing, where there is nothing to anchor the iteration and the whole thing is meaningless. It’s not a case anyone cares about practically, but it tells you what the method is actually living on: not the rank assumption, but the observed entries holding the estimate in place while the basis refines.</p>
+
+<h3 id="how-fast-it-settles">How fast it settles</h3>
+
+<p>One run of thirty sweeps visits every state a shorter run would have stopped at, because the iteration is deterministic. So \(n_{\text{iter}} = 2, 5, 10, 30\) are four points on one curve rather than four separate experiments, a nice saving, and the reason this figure cost one run instead of four.</p>
+
+<figure>
+  <img src="/assets/img/es_convergence_history.png" alt="Relative error on hidden entries against Everson-Sirovich sweep count, falling from the mean-fill baseline and flattening after about eight sweeps" loading="lazy" />
+  <figcaption>Error on the hidden entries after each sweep, at 30% missing and \(r = 10\). Sweep zero is the mean-fill initialisation. The circled points are the four iteration counts the assignment asks you to compare.</figcaption>
+</figure>
+
+<p>The curve is monotone and it flattens by about eight sweeps: sitting at 0.0508 at two, 0.0205 at five, 0.0179 at ten, 0.0178 at thirty. So by ten sweeps the curve is already at a floor and the following twenty iterations don’t contribute anything noticeable. The rank is reduced to 10 in this example, so a rank-10 basis collapses at 10 iterations in this setup, so any remaining recovery is a byproduct of truncation, but not incomplete convergence.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The takeaway from this work is that “enough measurements” is not a counting question. Ten unknowns and ten sensors is formally solvable and numerically useless; the figure that shows it spans sixteen orders of magnitude. So what matters is whether the rows observed happen to span the space we’re solving in.</p>
+
+<p>Both halves of this project turned out to be the same question. The sensor problem asks whether \(p\) scattered rows span the \(r\)-dimensional coefficient space. Everson–Sirovich asks it of each column’s observed entries, and answers badly at first and better each sweep. In both cases the failure wasn’t noise, it was a basis that was incorrect.</p>
+
+<p>The code for this is <code class="language-plaintext highlighter-rouge">a04-gappy-pod</code> in my flow-reconstruction assignment ladder, which will be on my GitHub at some point. The cylinder-wake DNS is the canonical dataset from Brunton and Kutz, <a href="http://databookuw.com/">Data-Driven Science and Engineering</a>. The iterative repair is from Everson and Sirovich’s gappy POD work, by way of Willcox (2006) and Venturi and Karniadakis (2004). If you want to derive the least-squares step from first principles before reading the solution, the pseudoinverse post is the place to start.</p>
+
+  </div>
+
+  <nav class="post-nav">
+    <a href="/#writing">&larr; All writing</a>
+  </nav>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+      <span>&copy; 2026 Zachary Scott-Murphy</span>
+      <span class="footer-links">
+        <a href="mailto:zachary@scott-murphy.com">Email</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="https://github.com/zacsmms">GitHub</a>
+      </span>
+    </footer>
+  </body>
+</html>
