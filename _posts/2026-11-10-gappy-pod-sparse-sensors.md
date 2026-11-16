@@ -63,7 +63,7 @@ What I didn't anticipate was the *shape* of the recovery. It is not gradual. Bet
 
 The band is the other half of the story, and arguably the more useful half. At \\(p = r\\) the spread across draws is enormous: your reconstruction is a lottery, and which ten points you happened to pick decides whether you get anything at all. The band collapses at the same rate the median does. By twenty sensors the draws agree with each other, which means the method has stopped being sensitive to luck. That is the real threshold: not where the error is acceptable, but where the *variance between placements* stops mattering.
 
-The practical rule I take from this is to oversample by about a factor of two and never pick \\(r\\) anywhere near \\(p\\). It also sets up the obvious next question: all of this is random placement, and the whole point of choosing sensors well is to buy the same conditioning with fewer of them. That's A05's job, and I haven't run it yet, so I won't claim the result.
+The practical rule I take from this is to oversample by about a factor of two and never pick \\(r\\) anywhere near \\(p\\). It also sets up the obvious next question: all of this is random placement, and the whole point of choosing sensors well is to buy the same conditioning with fewer of them. 
 
 ## Repairing a gappy ensemble
 
